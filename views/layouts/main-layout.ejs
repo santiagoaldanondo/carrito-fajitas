@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Carrito fajitas</title>
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <script src="/jquery/dist/jquery.min.js" type="text/javascript"></script>
-  </head>
-  <body>
-      
-              <a href="#" class="nav-logo-link">
-                <img class="nav-logo-image" src="http://www.carritosfoodcart.cl/img/tacos_icon.png" alt="Fajitas logo">
-              </a>
 
-      
-              <a href="#">
-                <span class="glyphicon glyphicon-search"></span>
-              </a>
-            <a href="/login">Login</a>
+<head>
+  <meta charset="utf-8">
+  <title>Carrito fajitas</title>
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/jquery/dist/jquery.min.js" type="text/javascript"></script>
+</head>
 
-    <%- body -%>
-    <script src="/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-  </body>
+<body>
+  <% include ../partials/menu %>
+    <% include ../partials/navigator %>
+      <%- body -%>
+</body>
+
 </html>
