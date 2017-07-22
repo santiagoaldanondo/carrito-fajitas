@@ -1,0 +1,46 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const CATEGORIES = require('./food-categories')
+
+const UserSchema = new Schema({
+  username: {
+    type: String,
+    required: [true, 'You need a username'],
+    unique: [true, 'That name already exists']
+  },
+  email: String,
+  name: String,
+  familyName: String,
+  facebookID: String,
+  categories: [{
+    type: String,
+    enum: CATEGORIES,
+    required: true
+  }],
+  _recipes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Recipe'
+  }],
+  _events: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Event'
+  }],
+  location: {
+    type: {
+      type: String
+    },
+    coordinates: [Number]
+  }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+})
+
+UserSchema.index({
+  location: '2dsphere'
+})
+
+const User = mongoose.model('User', UserSchema)
+module.exports = User
