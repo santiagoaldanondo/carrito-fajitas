@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.centered {
+  float: none;
+  margin: 10px auto;
+  text-align: center;
+}
