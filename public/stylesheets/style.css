@@ -12,3 +12,13 @@ a {
   margin: 10px auto;
   text-align: center;
 }
+
+#map {
+  width: 400px;
+  height: 400px;
+}
+
+#latitude,
+#longitude {
+  display: none;
+}

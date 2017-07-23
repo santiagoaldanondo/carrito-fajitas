@@ -26,6 +26,7 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Event"
   }],
+  address: String,
   location: Schema.Types.GeoJSON
 }, {
   timestamps: {
