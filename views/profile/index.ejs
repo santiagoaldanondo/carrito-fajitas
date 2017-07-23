@@ -1,9 +1,19 @@
 <h2> Your user </h2>
 
-  <ul class="form-group col-sm-4 centered">
-    <li class="form-control"> Username: <%= user.username %> </li>
-    <li class="form-control"> Name: <%= user.name %> </li>
-    <li class="form-control"> Family name: <%= user.familyName %> </li>
+<ul class="list-group col-sm-4 centered">
+  <li class="list-group-item"> Username: <%= user.username %> </li>
+  <li class="list-group-item"> Name: <%= user.name %> </li>
+  <li class="list-group-item"> Email: <%= user.email %> </li>
+  <li class="list-group-item"> Favorite foods: </li>
+  <li class="list-group-item"> Address: <%= user.address %> </li>
+  <li class="list-group-item"> Categories </li>
+  <ul class="list-group">
+    <% user.categories.forEach((category) => { %>
+      <li class="list-group-item"><%= category %></li>
+    <% }) %>
   </ul>
+</ul>
 
-  <button class="btn btn-warning"><a href="/profile/edit">Edit</a></button> 
+<div id="map" class="col-sm-4 centered"></div>
+  
+<button class="btn btn-warning center-block"><a href="/profile/edit">Edit</a></button>

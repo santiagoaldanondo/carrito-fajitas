@@ -12,6 +12,7 @@ const auth = require("./routes/auth");
 const profile = require("./routes/profile");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const passport = passportConfig();
 
 const app = express();
@@ -42,8 +43,15 @@ app.use(cookieParser());
 // session and passport
 app.use(session({
   secret: "carrito-fajitas",
-  // resave: true,
-  // saveUninitialized: true
+  cookie: {
+    maxAge: 60000
+  },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
+  resave: true,
+  saveUninitialized: true
 }));
 
 app.use(passport.initialize());
