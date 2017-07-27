@@ -1,10 +1,76 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+* {
+  font-family: 'Open Sans', sans-serif;
 }
 
-a {
-  color: #00B7FF;
+body {
+}
+
+/* @media screen and (min-width: 400px){
+.contents-section {
+  
+  }
+} */
+
+  /* this is the index view, with the recipes content */
+  .section {
+    padding-bottom: 50px;
+  }
+
+  .first{
+    background-color: red;
+    /* background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.45), 
+      rgba(0, 0, 0, 0.45)),
+    url("http://www.simplyrecipes.com/wp-content/uploads/2015/04/chicken-fajitas-horiz-b-1200.jpg") no-repeat; */
+}
+
+  .second{
+    background-color: blue;
+    /* background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.45), 
+      rgba(0, 0, 0, 0.45)),
+    url("http://blog.ticketea.com/wp-content/uploads/2016/06/sushi-1.jpg") no-repeat; */
+}
+  
+
+  .descp{
+    display: inline-block;
+    color: white;
+    font-size: 40px;
+  }
+
+/* footer and header start here */
+  .menu-section, .nav-section{
+    background-color: #000;
+  }
+
+
+/* this is the menu, at the top */
+.header {
+  background-color: #000;
+
+}
+.menu-section {
+  border-radius: 5px 5px 0px 0px; 
+}
+
+span{
+    display:inline-block;    
+    width:33%;
+    text-align:center;
+}
+  
+/* nav bar at the bottom */
+/* .nav-section {
+  border-radius: 0px 0px 5px 5px;
+  
+} */
+
+.icon {
+   width: 10%; 
 }
 
 .centered {
