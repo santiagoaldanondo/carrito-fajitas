@@ -64,15 +64,12 @@ span{
 }
   
 /* nav bar at the bottom */
-/* .nav-section {
-  border-radius: 0px 0px 5px 5px;
-  
-} */
+ .nav-section {
+} 
 
 .icon {
    width: 10%; 
 }
-
 .centered {
   float: none;
   margin: 10px auto;
