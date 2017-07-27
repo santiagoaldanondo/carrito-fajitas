@@ -11,6 +11,7 @@ const expressLayouts = require("express-ejs-layouts");
 const index = require("./routes/index");
 const auth = require("./routes/auth");
 const profile = require("./routes/profile");
+const api = require("./routes/api");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -45,11 +46,11 @@ app.use(cookieParser());
 app.use(session({
   secret: "carrito-fajitas",
   cookie: {
-    maxAge: 60000
+    maxAge: 365 * 24 * 60 * 60 * 1000 // 1 year
   },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
-    ttl: 24 * 60 * 60 // 1 day
+    ttl: 365 * 24 * 60 * 60 * 1000 // 1 year
   }),
   resave: true,
   saveUninitialized: true
@@ -58,10 +59,27 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Use the first part of the url to manage the menu partial
+app.use((req, res, next) => {
+  res.locals.navScope = req.originalUrl.split("/")[1];
+  next();
+});
+
+// Insert into locals if there is a logged in user or not
+app.use((req, res, next) => {
+  if (typeof (req.user) !== "undefined") {
+    res.locals.userSignedIn = true;
+  } else {
+    res.locals.userSignedIn = false;
+  }
+  next();
+});
+
 // Routes
 app.use("/", auth);
 app.use("/", index);
 app.use("/profile", profile);
+app.use("/api", api);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

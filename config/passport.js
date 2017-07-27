@@ -42,7 +42,8 @@ function fbAuth(accessToken, refreshToken, profile, done) {
       username: profile.displayName,
       name: profile.name.givenName || null,
       familyName: profile.name.familyName || null,
-      email: profile.name.email || null
+      email: profile.name.email || null,
+      location: {}
     });
 
     newUser.save((err) => {
