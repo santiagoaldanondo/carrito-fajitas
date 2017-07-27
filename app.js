@@ -1,59 +1,84 @@
-const express = require('express')
-const path = require('path')
+const express = require("express");
+const path = require("path");
 // const favicon = require('serve-favicon')
-const logger = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const passportConfig = require('./config/passport')
-const expressLayouts = require('express-ejs-layouts')
-const index = require('./routes/index')
-const auth = require('./routes/auth')
 
-const app = express()
+const logger = require("morgan");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const passportConfig = require("./config/passport");
+const expressLayouts = require("express-ejs-layouts");
+
+const index = require("./routes/index");
+const auth = require("./routes/auth");
+const profile = require("./routes/profile");
+
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const passport = passportConfig();
+
+const app = express();
+
+// mongoose configuration
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost/carrito-fajitas");
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-app.set('layout', 'layouts/main-layout');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.set("layout", "layouts/main-layout");
 app.use(expressLayouts);
+
+// Static
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "bower_components/")));
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'))
-app.use(bodyParser.json())
+app.use(logger("dev"));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
-}))
-app.use(cookieParser())
+}));
+app.use(cookieParser());
 
-// Passport
-const passport = passportConfig()
-app.use(passport.initialize())
-app.use(passport.session())
+// session and passport
+app.use(session({
+  secret: "carrito-fajitas",
+  cookie: {
+    maxAge: 60000
+  },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
+  resave: true,
+  saveUninitialized: true
+}));
 
-// Static
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.static(path.join(__dirname, 'bower_components/')))
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/', auth)
-app.use('/', index)
+// Routes
+app.use("/", auth);
+app.use("/", index);
+app.use("/profile", profile);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found')
-  err.status = 404
-  next(err)
-})
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
 
 // error handler
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  res.status(err.status || 500)
-  res.render('error')
-})
+  res.status(err.status || 500);
+  res.render("error");
+});
 
-module.exports = app
+module.exports = app;
