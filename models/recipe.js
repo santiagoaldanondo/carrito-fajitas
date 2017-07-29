@@ -7,10 +7,10 @@ const RecipeSchema = new Schema({
     type: String,
     required: [true, "You need a name for your recipe"]
   },
-  ingredients: [{
+  ingredients: {
     type: String,
     required: [true, "You need to add some ingredients"]
-  }],
+  },
   directions: {
     type: String,
     required: [true, "You need directions for your recipe"]
