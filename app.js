@@ -11,6 +11,7 @@ const expressLayouts = require("express-ejs-layouts");
 const index = require("./routes/index");
 const auth = require("./routes/auth");
 const profile = require("./routes/profile");
+const recipe = require("./routes/recipe");
 const api = require("./routes/api");
 
 const session = require("express-session");
@@ -79,6 +80,7 @@ app.use((req, res, next) => {
 app.use("/", auth);
 app.use("/", index);
 app.use("/profile", profile);
+app.use("/recipe", recipe);
 app.use("/api", api);
 
 // catch 404 and forward to error handler
