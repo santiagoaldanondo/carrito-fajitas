@@ -1,1 +1,15 @@
-<% console.log(events)%>
+<% if (events.length === 0) { %>
+    <p>You don't have any event</p>
+    <p><a href="events/new">Click to create a new event</a> or <a href="events/search">search events</a></p>
+<% } else { %>
+    <ul class="list-group col-sm-4 centered">
+        <% events.forEach((event) => { %>
+            <li class="list-group-item">
+                <h3><%= event.name %></h3>
+                <div>Date: <%= moment(event.eventDate).format("LLLL") %></div>
+                <div><%= event.numberPeople %><img class="home icon" src="/visual-assets/person.png"/></div>
+                <div><a href="events/:id/edit"></a></div>
+            </li>
+        <% }) %>
+    </ul>
+<% } %>

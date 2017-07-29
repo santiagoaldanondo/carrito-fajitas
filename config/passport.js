@@ -38,11 +38,12 @@ function fbAuth(accessToken, refreshToken, profile, done) {
       return done(null, user);
     }
     const newUser = new User({
-      facebookID: profile.id,
       username: profile.displayName,
-      name: profile.name.givenName || null,
-      familyName: profile.name.familyName || null,
-      email: profile.name.email || null,
+      facebookID: profile.id,
+      categories: [],
+      _recipes: [],
+      _events: [],
+      address: "",
       location: {
         "coordinates": [45.36201191934904, 2.9394516348838806],
         "type": "Point"

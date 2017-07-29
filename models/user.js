@@ -9,9 +9,6 @@ const UserSchema = new Schema({
     required: [true, "You need a username"],
     unique: [true, "That name already exists"]
   },
-  email: String,
-  name: String,
-  familyName: String,
   facebookID: String,
   categories: [{
     type: String,

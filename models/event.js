@@ -43,12 +43,7 @@ const EventSchema = new Schema({
     type: Number,
     required: true
   },
-  location: {
-    type: {
-      type: String
-    },
-    coordinates: [Number]
-  }
+  location: Schema.Types.GeoJSON
 }, {
   timestamps: {
     createdAt: "created_at",
