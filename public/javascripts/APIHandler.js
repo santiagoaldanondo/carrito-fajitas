@@ -16,7 +16,7 @@ class APIHandler {
   }
 
   getCoord(callback) {
-    let url = "/profile/getCoord";
+    let url = "/api/v1/getUserCoord";
     this.callToAPI(url, "GET", callback);
   }
 }
