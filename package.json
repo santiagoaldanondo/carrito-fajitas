@@ -17,6 +17,7 @@
     "express": "^4.15.3",
     "express-ejs-layouts": "^2.3.0",
     "express-session": "^1.15.4",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.3",
     "mongoose-geojson-schema": "^2.1.2",
     "morgan": "^1.8.2",

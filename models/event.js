@@ -1,11 +1,11 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const CATEGORIES = require('./food-categories')
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const CATEGORIES = require("./food-categories");
 
 const EventSchema = new Schema({
   name: {
     type: String,
-    required: [true, 'You need a name for your Event']
+    required: [true, "You need a name for your Event"]
   },
   categories: [{
     type: String,
@@ -21,44 +21,39 @@ const EventSchema = new Schema({
   },
   _creator: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   _favorites: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   _requests: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   _assistants: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   _recipes: [{
     type: Schema.Types.ObjectId,
-    ref: 'Recipe'
+    ref: "Recipe"
   }],
   price: {
     type: Number,
     required: true
   },
-  location: {
-    type: {
-      type: String
-    },
-    coordinates: [Number]
-  }
+  location: Schema.Types.GeoJSON
 }, {
   timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
+    createdAt: "created_at",
+    updatedAt: "updated_at"
   }
-})
+});
 
 EventSchema.index({
-  location: '2dsphere'
-})
+  location: "2dsphere"
+});
 
-const Event = mongoose.model('Event', EventSchema)
-module.exports = Event
+const Event = mongoose.model("Event", EventSchema);
+module.exports = Event;

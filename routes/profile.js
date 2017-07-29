@@ -15,7 +15,6 @@ router.get("/", (req, res, next) => {
     res.render("profile", {
       user: req.user,
       categories: CATEGORIES,
-      GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
     });
   });
 });
@@ -40,9 +39,6 @@ router.post("/", (req, res, next) => {
   const userId = req.user._id;
   const updates = {
     username: req.body.username,
-    email: req.body.email,
-    name: req.body.name,
-    familyName: req.body.familyName,
     categories: req.body.categories || [],
     address: req.body.address,
     location: {
