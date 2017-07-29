@@ -12,6 +12,7 @@ const index = require("./routes/index");
 const auth = require("./routes/auth");
 const profile = require("./routes/profile");
 const api = require("./routes/api");
+const events = require("./routes/events");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -80,6 +81,7 @@ app.use("/", auth);
 app.use("/", index);
 app.use("/profile", profile);
 app.use("/api", api);
+app.use("/events", events);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
