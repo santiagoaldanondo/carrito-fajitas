@@ -42,7 +42,11 @@ function fbAuth(accessToken, refreshToken, profile, done) {
       username: profile.displayName,
       name: profile.name.givenName || null,
       familyName: profile.name.familyName || null,
-      email: profile.name.email || null
+      email: profile.name.email || null,
+      location: {
+        "coordinates": [45.36201191934904, 2.9394516348838806],
+        "type": "Point"
+      }
     });
 
     newUser.save((err) => {

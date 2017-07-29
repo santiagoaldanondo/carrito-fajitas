@@ -11,6 +11,7 @@ const expressLayouts = require("express-ejs-layouts");
 const index = require("./routes/index");
 const auth = require("./routes/auth");
 const profile = require("./routes/profile");
+const recipe = require("./routes/recipe");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -45,11 +46,11 @@ app.use(cookieParser());
 app.use(session({
   secret: "carrito-fajitas",
   cookie: {
-    maxAge: 60000
+    maxAge: 365 * 24 * 60 * 60 * 1000 // 1 year
   },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
-    ttl: 24 * 60 * 60 // 1 day
+    ttl: 365 * 24 * 60 * 60 * 1000 // 1 year
   }),
   resave: true,
   saveUninitialized: true
@@ -62,6 +63,7 @@ app.use(passport.session());
 app.use("/", auth);
 app.use("/", index);
 app.use("/profile", profile);
+app.use("/recipe", recipe);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
