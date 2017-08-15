@@ -17,7 +17,6 @@ router.get("/", (req, res, next) => {
       throw err;
     }
   }).then(function (events) {
-    console.log(events);
     res.render("events", {
       user: req.user,
       categories: CATEGORIES,
@@ -69,73 +68,79 @@ router.post("/", (req, res, next) => {
 });
 
 
-// // GET to show an event
-// router.get("/:id", (req, res, next) => {
-//     const eventId = req.params.id;
+// GET to show an event
+router.get("/:id", (req, res, next) => {
+  const eventId = req.params.id;
 
-//     Event.findById(eventId, (err, event) => {
-//         if (err) {
-//             return next(err);
-//         }
-//         res.render("events/show", {
-//             user: req.user,
-//             event: event,
-//             moment
-//         });
-//     });
-// });
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    }
+    res.render("events/show", {
+      user: req.user,
+      event: event,
+      moment
+    });
+  });
+});
 
-// // GET to edit an event
-// router.get("/:id/edit", (req, res, next) => {
-//     if (req.user === ) { // If it has permissions
-//         const eventId = req.params.id;
+// GET to edit an event
+router.get("/:id/edit", (req, res, next) => {
+  const userId = req.user._id;
+  const eventId = req.params.id;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else if (userId === event._creator) { // If it is the creator of the event
+      res.render(`events/${eventId}`, {
+        user: req.user,
+        event: event,
+        moment
+      });
+    } else { // If it is not the creator of the event
+      res.redirect(`/events/${req.params.id}`);
+    }
+  });
+});
 
-//         event.findById(eventId, (err, event) => {
-//             if (err) {
-//                 return next(err);
-//             }
-//             res.render("events/edit", {
-//                 user: req.user,
-//                 event: event,
-//                 moment
-//             });
-//         });
-//     } else {
-//         res.redirect(`/${req.params.id}`);
-//     }
-// });
+// POST to update an event
+router.post("/:id", (req, res, next) => {
+  const userId = req.user._id;
+  const eventId = req.params.id;
 
-// // private/events/:id/edit get. Update a event
-// router.post("/:id", (req, res, next) => {
-//     if (req.user.permissions.eventEdit) { // If it has permissions
-//         const eventId = req.params.id;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else if (userId === event._creator) { // If it is the creator of the event
+      const updateEvent = {
+        name: req.body.name,
+        eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
+        numberPeople: req.body.numberPeople,
+        price: req.body.price,
+        categories: req.body.categories || [],
+        address: req.body.address,
+        location: {
+          type: "Point",
+          coordinates: [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
+        },
+      };
+      Event.findByIdAndUpdate(eventId, updateEvent, (err, event) => {
+        if (err) {
+          res.render(`events/${eventId}/edit`, {
+            user: req.user,
+            messages: {
+              error: err
+            }
+          });
+        } else {
+          res.redirect(`/${req.params.id}`);
+        }
+      });
+    } else {
+      res.redirect(`/${req.params.id}`);
+    }
+  });
 
-//         const updates = {
-//             name: req.body.name,
-//             startingDate: req.body.startingDate,
-//             endDate: req.body.endDate,
-//             level: req.body.level,
-//             available: !!req.body.available
-//         };
-
-//         event.findByIdAndUpdate(eventId, updates, (err, event) => {
-//             if (err) {
-//                 res.render(`events/${eventId}/update`, {
-//                     user: req.user,
-//                     messages: {
-//                         error: err
-//                     }
-//                 });
-//             } else {
-//                 res.redirect("/private/events/list");
-//             }
-//         });
-//     } else {
-//         res.redirect("/private/events");
-//     }
-// });
-
-
-
+});
 
 module.exports = router;

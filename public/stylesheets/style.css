@@ -1,79 +1,22 @@
+/* General CSS */
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 * {
   font-family: 'Open Sans', sans-serif;
 }
 
-body {
-}
 
-/* @media screen and (min-width: 400px){
-.contents-section {
-  
-  }
-} */
-
-  /* this is the index view, with the recipes content */
-  .section {
-    padding-bottom: 50px;
-  }
-
-  .first{
-    background-color: red;
-    /* background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.45), 
-      rgba(0, 0, 0, 0.45)),
-    url("http://www.simplyrecipes.com/wp-content/uploads/2015/04/chicken-fajitas-horiz-b-1200.jpg") no-repeat; */
-}
-
-  .second{
-    background-color: blue;
-    /* background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.45), 
-      rgba(0, 0, 0, 0.45)),
-    url("http://blog.ticketea.com/wp-content/uploads/2016/06/sushi-1.jpg") no-repeat; */
-}
-  
-
-  .descp{
-    display: inline-block;
-    color: white;
-    font-size: 40px;
-  }
-
-/* footer and header start here */
-  .menu-section, .nav-section{
-    background-color: #000;
-  }
-
-
-/* this is the menu, at the top */
-.header {
-  background-color: #000;
-
-}
-.menu-section {
-  border-radius: 5px 5px 0px 0px; 
-}
-
-span{
-    display:inline-block;    
-    width:33%;
-    text-align:center;
-}
-  
-/* nav bar at the bottom */
- .nav-section {
-} 
+/* Common classes and ids */
 
 .icon {
-   width: 10%; 
+  width: 5vh
 }
+
 .centered {
   float: none;
-  margin: 10px auto;
+  margin: auto;
   text-align: center;
+  vertical-align: middle;
 }
 
 #map {
@@ -84,4 +27,109 @@ span{
 #latitude,
 #longitude {
   display: none;
+}
+
+.no-padding {
+  padding: 0;
+  height: 100%;
+}
+
+
+/* common to menu and nav */
+
+.menu-section,
+.nav-section {
+  text-align: center;
+  height: 5vh;
+}
+
+.menu-button,
+.nav-button {
+  display: block;
+  height: 100%;
+}
+
+
+/* contents, in the middle */
+
+.contents-section {
+  margin: 5vh 0px;
+}
+
+.home-container {
+  position: relative;
+  height: 90vh;
+}
+
+.home-content {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  background-image: url(http://pirozhnichenko.ru/prefix/arabskaya-kuhnya-retsepti-foto.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.home-title {
+  margin: 20vh auto;
+  color: #E0260C;
+  font-size: 10vw;
+  font-weight: bolder;
+  background-color: rgba(256, 256, 256, 0.5)
+}
+
+@media (min-width: 992px) {
+  .home-title {
+    font-size: 5vw;
+  }
+}
+
+.home-button {
+  margin: 20vh auto 0 auto;
+}
+
+
+/* menu, at the top */
+
+.menu-fixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+}
+
+.menu-section {
+  border-radius: 5px 5px 0px 0px;
+}
+
+.menu-button {
+  background: #fffacd;
+  background: -webkit-linear-gradient( #E0260C, #EB6508, #C42E07);
+  background: -o-linear-gradient( #E0260C, #EB6508, #C42E07);
+  background: -moz-linear-gradient( #E0260C, #EB6508, #C42E07);
+  background: linear-gradient( #E0260C, #EB6508, #C42E07);
+}
+
+
+/* nav bar at the bottom */
+
+.nav-fixed {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+}
+
+.nav-button {
+  background: #fffacd;
+  background: -webkit-linear-gradient( #E0260C, #EB6508, #C42E07);
+  background: -o-linear-gradient( #E0260C, #EB6508, #C42E07);
+  background: -moz-linear-gradient( #E0260C, #EB6508, #C42E07);
+  background: linear-gradient( #E0260C, #EB6508, #C42E07);
 }

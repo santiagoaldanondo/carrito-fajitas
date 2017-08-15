@@ -8,7 +8,7 @@
                 <h3><%= event.name %></h3>
                 <div>Date: <%= moment(event.eventDate).format("LLLL") %></div>
                 <div><%= event.numberPeople %><img class="home icon" src="/visual-assets/person.png"/></div>
-                <div><a href="events/:id/edit"></a></div>
+                <div><a href="events/<%= event._id %>/edit">Edit</a></div>
             </li>
         <% }) %>
     </ul>

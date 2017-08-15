@@ -1,0 +1,59 @@
+<h2 class="centered"> Create a new event </h2>
+
+<form action="/events/<%= event._id %>" method="POST">
+
+    <div class="form-group col-xs-4 centered">
+        <label class="centered" for="name">Event name</label>
+        <input class="form-control" type="text" id="name" name="name" value="<%= event.name %>">
+    </div>
+
+    <div class="form-group col-xs-4 centered">
+        <label class="centered" for="eventDateDate">Date</label>
+        <input class="form-control" type="date" id="eventDateDate" name="eventDateDate">
+    </div>
+
+    <div class="form-group col-xs-4 centered">
+        <label class="centered" for="eventDateTime">Hour</label>
+        <input class="form-control" type="time" value="00:00" id="eventDateTime" name="eventDateTime">
+    </div>
+
+    <div class="form-group col-xs-4 centered">
+        <label class="centered" for="numberPeople">For how many people?</label>
+        <input class="form-control" type="number" name="numberPeople" id="numberPeople value="<%= event.numberPeople %>"">
+    </div>
+
+    <div class="form-group col-xs-4 centered">
+        <label class="centered" for="price">How much will assistants pay?</label>
+        <input class="form-control" type="number" name="price" id="price" value="<%= event.price %>">
+    </div>
+
+    <div class="form-group centered">
+        <label for="categories">Event categories</label><br>
+        <select multiple name="categories" id="categories">
+            <% categories.forEach((category) => { %>
+                <% if (event.categories.indexOf(category) >= 0) { %>
+                    <option type="text" value="<%= category %>" class="form-control" selected>
+                        <%= category %>
+                    </option>
+                <% } else { %>
+                    <option type="text" value="<%= category %>" class="form-control">
+                        <%= category %>
+                    </option>
+                <% } %>
+            <%  }) %>
+        </select>
+    </div>
+
+    <div class="form-group col-xs-4 centered">
+        <label class="centered" for="address">Location</label>
+        <input class="form-control" type="text" name="address" id="address">
+        <input class="form-control" type="text" name="latitude" id="latitude">
+        <input class="form-control" type="text" name="longitude" id="longitude">
+        <input type="button" value="search address" id="encode">
+    </div>
+
+    <div id="map" class="col-sm-4 centered"></div>
+
+    <button type="submit" class="btn btn-primary center-block">Update</button>
+
+</form>
