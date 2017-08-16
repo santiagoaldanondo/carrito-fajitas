@@ -9,7 +9,7 @@
 /* Common classes and ids */
 
 .icon {
-  width: 5vh
+  height: 5vh
 }
 
 .centered {
@@ -75,7 +75,7 @@
 }
 
 .home-title {
-  margin: 20vh auto;
+  margin: 40vh auto;
   color: #E0260C;
   font-size: 10vw;
   font-weight: bolder;
@@ -86,10 +86,6 @@
   .home-title {
     font-size: 5vw;
   }
-}
-
-.home-button {
-  margin: 20vh auto 0 auto;
 }
 
 

@@ -61,7 +61,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Use the first part of the url to manage the menu partial
+// Use the first part of the url to manage the menu depending on the nav section
 app.use((req, res, next) => {
   res.locals.navScope = req.originalUrl.split("/")[1];
   next();
