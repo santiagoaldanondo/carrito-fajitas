@@ -7,27 +7,31 @@ require("dotenv").config();
 // Moment to format dates
 const moment = require("moment");
 
-// GET to show the main events page
-router.get("/", (req, res, next) => {
-  const userId = req.user._id;
-  Event.find({
-    _creator: userId
-  }, (err, events) => {
+// GET to show the main events page (with the user events)
+router.get("/", (req, res) => {
+  Event.find({}, (err) => {
     if (err) {
       throw err;
     }
+  }).sort({
+    eventDate: 1
   }).then(function (events) {
-    res.render("events", {
-      user: req.user,
-      categories: CATEGORIES,
-      events: events,
-      moment
-    });
+    if (events.length === 0) {
+      res.render("events", {
+        user: req.user
+      });
+    } else {
+      res.render("events/list", {
+        user: req.user,
+        events: events,
+        moment
+      });
+    }
   });
 });
 
 // GET to create a new event
-router.get("/new", (req, res, next) => {
+router.get("/new", (req, res) => {
   res.render("events/new", {
     user: req.user,
     categories: CATEGORIES,
@@ -36,8 +40,8 @@ router.get("/new", (req, res, next) => {
 });
 
 // POST to submit the new event
-router.post("/", (req, res, next) => {
-  const userId = req.user._id;
+router.post("/", (req, res) => {
+
   const newEvent = new Event({
     name: req.body.name,
     eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
@@ -49,7 +53,8 @@ router.post("/", (req, res, next) => {
       type: "Point",
       coordinates: [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
     },
-    _creator: userId
+    _creator: req.user._id,
+    numberAssistants: 0
   });
 
   newEvent.save((err) => {
@@ -57,6 +62,7 @@ router.post("/", (req, res, next) => {
       res.render("events/new", {
         user: req.user,
         categories: CATEGORIES,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
         messages: {
           error: err
         }
@@ -68,21 +74,14 @@ router.post("/", (req, res, next) => {
 });
 
 
-// GET to show an event
-router.get("/:id", (req, res, next) => {
-  const eventId = req.params.id;
-
-  Event.findById(eventId, (err, event) => {
-    if (err) {
-      return next(err);
-    }
-    res.render("events/show", {
-      user: req.user,
-      event: event,
-      moment
-    });
+// GET to search an event
+router.get("/search", (req, res) => {
+  res.render("events/search", {
+    user: req.user,
+    categories: CATEGORIES
   });
 });
+
 
 // GET to edit an event
 router.get("/:id/edit", (req, res, next) => {
@@ -124,7 +123,7 @@ router.post("/:id", (req, res, next) => {
           coordinates: [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
         },
       };
-      Event.findByIdAndUpdate(eventId, updateEvent, (err, event) => {
+      Event.findByIdAndUpdate(eventId, updateEvent, (err) => {
         if (err) {
           res.render(`events/${eventId}/edit`, {
             user: req.user,
@@ -140,7 +139,6 @@ router.post("/:id", (req, res, next) => {
       res.redirect(`/${req.params.id}`);
     }
   });
-
 });
 
 module.exports = router;

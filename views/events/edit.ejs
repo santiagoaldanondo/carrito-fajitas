@@ -28,8 +28,8 @@
     </div>
 
     <div class="form-group centered">
-        <label for="categories">Event categories</label><br>
-        <select multiple name="categories" id="categories">
+        <label class="control-label" for="categories">Favorite food categories</label>
+        <select multiple="multiple" name="categories" id="categories" class="multiselect-ui form-control">
             <% categories.forEach((category) => { %>
                 <% if (event.categories.indexOf(category) >= 0) { %>
                     <option type="text" value="<%= category %>" class="form-control" selected>

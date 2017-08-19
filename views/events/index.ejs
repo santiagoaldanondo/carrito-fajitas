@@ -1,23 +1,10 @@
-<% if (events.length === 0) { %>
-    <p>You don't have any event</p>
-    <p><a href="events/new">Click to create a new event</a> or <a href="events/search">search events</a></p>
-<% } else { %>
-    <ul class="list-group col-xs-12">
-        <% events.forEach((event) => { %>
-            <li class="list-group-item list-selectable">
-                <div class="container-fluid">
-                    <div class="row-fluid">
-                        <div class="col-xs-9 col-sm-10 inside-list">
-                            <div><%= event.name %></div>
-                            <div><%= moment(event.eventDate).format("MMM Do YYYY") %></div>
-                        </div>
-                        <div class="col-xs-3 col-sm-2 inside-list">
-                            <div><img class="small-icon" src="/visual-assets/dish-icon.png"/> <%= event.numberPeople %></div>
-                            <div><%= event.price %> €</div>
-                        </div>
-                    </div>
-                </div>                    
-            </li>
-        <% }) %>
-    </ul>
-<% } %>
+<div class="home-container">
+    <div class="home-content centered">
+        <div class="home-text">
+            <p>You don't have any upcoming event</p>
+            <p>Click to <a href="events/new">create a new event</a> or <a href="events/search">search events</a></p>
+        </div>
+    </div>
+</div>
+
+
