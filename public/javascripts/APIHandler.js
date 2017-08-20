@@ -34,4 +34,15 @@ class APIHandler {
     var data = this.getInfoFromForm($(".search-form"));
     this.callToAPI(url, "POST", callback, data);
   }
+
+  toggleFav(data, callback) {
+    var url = "/api/v1/events/toggleFav";
+    this.callToAPI(url, "POST", callback, data);
+  }
+
+  toggleAssist(data, callback) {
+    var url = "/api/v1/events/toggleAssist";
+    this.callToAPI(url, "POST", callback, data);
+  }
+
 }

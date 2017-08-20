@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
     if (err) {
       throw err;
     }
-  }).sort({
+  }).populate("_creator").sort({
     eventDate: 1
   }).then(function (events) {
     if (events.length === 0) {
@@ -85,32 +85,30 @@ router.get("/search", (req, res) => {
 
 // GET to edit an event
 router.get("/:id/edit", (req, res, next) => {
-  const userId = req.user._id;
   const eventId = req.params.id;
   Event.findById(eventId, (err, event) => {
     if (err) {
       return next(err);
-    } else if (userId === event._creator) { // If it is the creator of the event
-      res.render(`events/${eventId}`, {
+    } else if (event._creator.equals(req.user._id)) { // If it is the creator of the event
+      res.render("events/edit", {
         user: req.user,
         event: event,
-        moment
+        categories: CATEGORIES,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
       });
     } else { // If it is not the creator of the event
-      res.redirect(`/events/${req.params.id}`);
+      res.redirect("events");
     }
   });
 });
 
 // POST to update an event
 router.post("/:id", (req, res, next) => {
-  const userId = req.user._id;
   const eventId = req.params.id;
-
   Event.findById(eventId, (err, event) => {
     if (err) {
       return next(err);
-    } else if (userId === event._creator) { // If it is the creator of the event
+    } else if (event._creator.equals(req.user._id)) { // If it is the creator of the event
       const updateEvent = {
         name: req.body.name,
         eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
@@ -132,11 +130,11 @@ router.post("/:id", (req, res, next) => {
             }
           });
         } else {
-          res.redirect(`/${req.params.id}`);
+          res.redirect("/events");
         }
       });
     } else {
-      res.redirect(`/${req.params.id}`);
+      res.redirect("/events");
     }
   });
 });

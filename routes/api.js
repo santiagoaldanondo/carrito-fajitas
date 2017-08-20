@@ -41,6 +41,8 @@ router.post("/v1/events/search", (req, res) => {
     if (err) {
       throw err;
     }
+  }).populate("_creator").sort({
+    eventDate: 1
   }).then(function (events) {
     res.render("events/list", {
       layout: false,
@@ -50,6 +52,51 @@ router.post("/v1/events/search", (req, res) => {
     });
   });
 });
+
+router.post("/v1/events/toggleFav", (req, res, next) => {
+  var eventId = req.body.eventId;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else {
+      var index = event.hasIdInArray(req.user._id, event._favorites);
+      if (index > -1)
+        event._favorites.splice(index, 1);
+      else
+        event._favorites.push(req.user._id);
+    }
+    event.save((err) => {
+      if (err) {
+        return next(err);
+      } else {
+        res.json({});
+      }
+    });
+  });
+});
+
+router.post("/v1/events/toggleAssist", (req, res, next) => {
+  var eventId = req.body.eventId;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else {
+      var index = event.hasIdInArray(req.user._id, event._assistants);
+      if (index > -1)
+        event._assistants.splice(index, 1);
+      else
+        event._assistants.push(req.user._id);
+    }
+    event.save((err) => {
+      if (err) {
+        return next(err);
+      } else {
+        res.json({});
+      }
+    });
+  });
+});
+
 
 
 module.exports = router;

@@ -27,6 +27,7 @@ const EventSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
+  address: String,
   _favorites: [{
     type: Schema.Types.ObjectId,
     ref: "User"
@@ -54,6 +55,7 @@ const EventSchema = new Schema({
   }
 }).plugin(function (schema) {
   schema.pre("save", function (next) {
+    this.numberAssistants = this._assistants.length;
     this.isFull = (this.numberAssistants >= this.numberPeople);
 
     next();
@@ -63,6 +65,14 @@ const EventSchema = new Schema({
 EventSchema.index({
   location: "2dsphere"
 });
+
+EventSchema.methods.hasIdInArray = function (id, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (id.toString() === array[i].toString())
+      return i;
+  }
+  return -1;
+};
 
 const Event = mongoose.model("Event", EventSchema);
 module.exports = Event;
