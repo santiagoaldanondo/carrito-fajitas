@@ -20,9 +20,19 @@ Carrito-fajitas is a web application built with Node, Express and Mongo. It allo
 * Profile: view and edit profile details
 
 ## Bugs
-* The session breaks too quickly
+
 
 ## Next steps
 
+* Use google chrome autofill?
+* Upload and show images
+* Publish on facebook
+* Fix date and time to be printed properly for update
+* Redirect to home when there is no user
+* Add small map to events show and list view 
+
+
 
 ## Fixed bugs
+
+* The session breaks too quickly -> Change parameters for session in app.js

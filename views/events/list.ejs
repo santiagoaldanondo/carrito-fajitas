@@ -1,6 +1,6 @@
 <ul class="list-group col-xs-12">
     <% events.forEach((event) => { %>
-        <li class="list-group-item list-selectable" id="<%= event.id%>">
+        <li class="list-group-item list-selectable event-id" id="<%= event.id%>">
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="col-xs-9 col-sm-10 inside-list">
@@ -8,11 +8,14 @@
                         <div><%= moment(event.eventDate).format("MMM Do YYYY") %></div>
                     </div>
                     <div class="col-xs-3 col-sm-2 inside-list">
-                        <div><img class="small-icon" src="/visual-assets/dish-icon.png"/> <%= event.numberPeople %></div>
+                        <div><img class="small-icon" src="/visual-assets/people-icon.png"/> <%= event.numberPeople %></div>
                         <div><%= event.price %> €</div>
                     </div>
                 </div>
                 <div class="row-fluid">
+                    <div class="col-xs-1 inside-list">
+                        <a href="/events/<%= event._id%>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                    </div>
                     <% if (event.hasIdInArray(user._id, event._favorites) > -1) { %>
                         <div class="col-xs-1 inside-list">
                             <span class="glyphicon fav-glyphicon glyphicon-heart" aria-hidden="true"></span>

@@ -82,6 +82,60 @@ router.get("/search", (req, res) => {
   });
 });
 
+// Get to show favorite events for the user
+router.get("/fav", (req, res) => {
+  Event.find({
+    _favorites: req.user._id
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+  }).populate("_creator").sort({
+    eventDate: 1
+  }).then(function (events) {
+    res.render("events/list", {
+      user: req.user,
+      events: events,
+      moment
+    });
+  });
+});
+
+// Get to show events to which the user wants to assist 
+router.get("/assist", (req, res) => {
+  Event.find({
+    _assistants: req.user._id
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+  }).populate("_creator").sort({
+    eventDate: 1
+  }).then(function (events) {
+    res.render("events/list", {
+      user: req.user,
+      events: events,
+      moment
+    });
+  });
+});
+
+// GET to show an event
+router.get("/:id", (req, res, next) => {
+  const eventId = req.params.id;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else {
+      res.render("events/show", {
+        user: req.user,
+        event: event,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+        moment
+      });
+    }
+  });
+});
 
 // GET to edit an event
 router.get("/:id/edit", (req, res, next) => {
@@ -123,8 +177,11 @@ router.post("/:id", (req, res, next) => {
       };
       Event.findByIdAndUpdate(eventId, updateEvent, (err) => {
         if (err) {
-          res.render(`events/${eventId}/edit`, {
+          res.render("events/edit", {
             user: req.user,
+            event: event,
+            categories: CATEGORIES,
+            GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
             messages: {
               error: err
             }

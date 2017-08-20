@@ -8,5 +8,7 @@ $(".search-form").submit(function (e) {
     $(".list-group").remove();
     $(".contents-section").append(response); // Add the response html to the view
     listenSelectList(); // Add a listener to select elements from the list
+    listenFav(); // Add a listener to change the fav glyphicon
+    listenAssist(); // Add a listener to change the assist glyphicon
   });
 });
