@@ -24,14 +24,17 @@ Carrito-fajitas is a web application built with Node, Express and Mongo. It allo
 
 ## Next steps
 
-* Use google chrome autofill?
+* Use google maps autofill?
 * Upload and show images
 * Publish on facebook
 * Fix date and time to be printed properly for update
 * Redirect to home when there is no user
 * Add small map to events show and list view 
-
-
+* Max width for inside events 
+* Search by location
+* Heroku
+* Amazon
+* List of assistants
 
 ## Fixed bugs
 

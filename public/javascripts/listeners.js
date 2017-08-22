@@ -47,3 +47,15 @@ function listenAssist() {
   });
 }
 listenAssist();
+
+// Search form
+$(".search-form").submit(function (e) {
+  e.preventDefault(); // cancel the link itself
+  myApiListen.searchBox(function (response) { // Query the API to search events
+    $(".list-group").remove();
+    $(".contents-section").append(response); // Add the response html to the view
+    listenSelectList(); // Add a listener to select elements from the list
+    listenFav(); // Add a listener to change the fav glyphicon
+    listenAssist(); // Add a listener to change the assist glyphicon
+  });
+});

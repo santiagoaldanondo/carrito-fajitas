@@ -29,8 +29,9 @@ class APIHandler {
     return returnObject;
   }
 
-  searchEvent(callback) {
-    var url = "/api/v1/events/search";
+  searchBox(callback) {
+    var path = window.location.pathname.split("/")[1];
+    var url = "/api/v1/" + path + "/search";
     var data = this.getInfoFromForm($(".search-form"));
     this.callToAPI(url, "POST", callback, data);
   }
