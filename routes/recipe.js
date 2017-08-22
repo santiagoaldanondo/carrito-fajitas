@@ -49,7 +49,7 @@ router.post("/", (req, res, next) => {
         }
       });
     } else {
-      res.redirect("events");
+      res.redirect("recipe");
     }
   });
 });
