@@ -6,7 +6,7 @@ var center;
 var markers = [];
 
 // Instantiate the APIHandler
-var myApiGoogle = new APIHandler("http://localhost:3000");
+var myApiGoogle = new APIHandler();
 
 // Start Google Maps Map, Geocoder and InfoWindow. Called as callback from script in main-layouts
 function startMap() {

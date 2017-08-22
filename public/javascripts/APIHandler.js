@@ -1,6 +1,6 @@
 class APIHandler {
-  constructor(baseUrl) {
-    this.BASE_URL = baseUrl;
+  constructor() {
+    this.BASE_URL = window.location.origin;
   }
 
   callToAPI(url, method, callback, data, error) {

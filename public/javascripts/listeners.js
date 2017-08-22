@@ -1,4 +1,4 @@
-var myApiListen = new APIHandler("http://localhost:3000");
+var myApiListen = new APIHandler();
 
 function listenLogout() { // Change <a> logout to POST method  
   if ($("#logout")) {
