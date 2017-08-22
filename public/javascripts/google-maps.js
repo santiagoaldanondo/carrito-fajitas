@@ -6,7 +6,7 @@ var center;
 var markers = [];
 
 // Instantiate the APIHandler
-var myAPI = new APIHandler("http://localhost:3000");
+var myApiGoogle = new APIHandler("http://localhost:3000");
 
 // Start Google Maps Map, Geocoder and InfoWindow. Called as callback from script in main-layouts
 function startMap() {
@@ -18,7 +18,7 @@ function startMap() {
     center: center
   };
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  myAPI.getCoord((response) => {
+  myApiGoogle.getCoord(function (response) {
     addMarker(response);
   });
 
