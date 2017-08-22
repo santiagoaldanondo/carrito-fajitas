@@ -3,7 +3,7 @@ class APIHandler {
     this.BASE_URL = baseUrl;
   }
 
-  callToAPI(url, method, callback, error, data) {
+  callToAPI(url, method, callback, data, error) {
     url = `${this.BASE_URL}${url}`;
     $.ajax({
       method: method,
@@ -16,7 +16,33 @@ class APIHandler {
   }
 
   getCoord(callback) {
-    let url = "/api/v1/getUserCoord";
+    var url = "/api/v1/getUserCoord";
     this.callToAPI(url, "GET", callback);
   }
+
+  // Used to get the info from a form and send it with ajax
+  getInfoFromForm(form) {
+    var returnObject = {};
+    form.serializeArray().forEach(function (input) {
+      returnObject[input.name] = input.value;
+    });
+    return returnObject;
+  }
+
+  searchEvent(callback) {
+    var url = "/api/v1/events/search";
+    var data = this.getInfoFromForm($(".search-form"));
+    this.callToAPI(url, "POST", callback, data);
+  }
+
+  toggleFav(data, callback) {
+    var url = "/api/v1/events/toggleFav";
+    this.callToAPI(url, "POST", callback, data);
+  }
+
+  toggleAssist(data, callback) {
+    var url = "/api/v1/events/toggleAssist";
+    this.callToAPI(url, "POST", callback, data);
+  }
+
 }

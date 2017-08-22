@@ -7,28 +7,31 @@ require("dotenv").config();
 // Moment to format dates
 const moment = require("moment");
 
-// GET to show the main events page
-router.get("/", (req, res, next) => {
-  const userId = req.user._id;
-  Event.find({
-    _creator: userId
-  }, (err, events) => {
+// GET to show the main events page (with the user events)
+router.get("/", (req, res) => {
+  Event.find({}, (err) => {
     if (err) {
       throw err;
     }
+  }).populate("_creator").sort({
+    eventDate: 1
   }).then(function (events) {
-    console.log(events);
-    res.render("events", {
-      user: req.user,
-      categories: CATEGORIES,
-      events: events,
-      moment
-    });
+    if (events.length === 0) {
+      res.render("events", {
+        user: req.user
+      });
+    } else {
+      res.render("events/list", {
+        user: req.user,
+        events: events,
+        moment
+      });
+    }
   });
 });
 
 // GET to create a new event
-router.get("/new", (req, res, next) => {
+router.get("/new", (req, res) => {
   res.render("events/new", {
     user: req.user,
     categories: CATEGORIES,
@@ -37,8 +40,8 @@ router.get("/new", (req, res, next) => {
 });
 
 // POST to submit the new event
-router.post("/", (req, res, next) => {
-  const userId = req.user._id;
+router.post("/", (req, res) => {
+
   const newEvent = new Event({
     name: req.body.name,
     eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
@@ -50,7 +53,8 @@ router.post("/", (req, res, next) => {
       type: "Point",
       coordinates: [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
     },
-    _creator: userId
+    _creator: req.user._id,
+    numberAssistants: 0
   });
 
   newEvent.save((err) => {
@@ -58,6 +62,7 @@ router.post("/", (req, res, next) => {
       res.render("events/new", {
         user: req.user,
         categories: CATEGORIES,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
         messages: {
           error: err
         }
@@ -69,73 +74,126 @@ router.post("/", (req, res, next) => {
 });
 
 
-// // GET to show an event
-// router.get("/:id", (req, res, next) => {
-//     const eventId = req.params.id;
+// GET to search an event
+router.get("/search", (req, res) => {
+  res.render("events/search", {
+    user: req.user,
+    categories: CATEGORIES
+  });
+});
 
-//     Event.findById(eventId, (err, event) => {
-//         if (err) {
-//             return next(err);
-//         }
-//         res.render("events/show", {
-//             user: req.user,
-//             event: event,
-//             moment
-//         });
-//     });
-// });
+// Get to show favorite events for the user
+router.get("/fav", (req, res) => {
+  Event.find({
+    _favorites: req.user._id
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+  }).populate("_creator").sort({
+    eventDate: 1
+  }).then(function (events) {
+    res.render("events/list", {
+      user: req.user,
+      events: events,
+      moment
+    });
+  });
+});
 
-// // GET to edit an event
-// router.get("/:id/edit", (req, res, next) => {
-//     if (req.user === ) { // If it has permissions
-//         const eventId = req.params.id;
+// Get to show events to which the user wants to assist 
+router.get("/assist", (req, res) => {
+  Event.find({
+    _assistants: req.user._id
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+  }).populate("_creator").sort({
+    eventDate: 1
+  }).then(function (events) {
+    res.render("events/list", {
+      user: req.user,
+      events: events,
+      moment
+    });
+  });
+});
 
-//         event.findById(eventId, (err, event) => {
-//             if (err) {
-//                 return next(err);
-//             }
-//             res.render("events/edit", {
-//                 user: req.user,
-//                 event: event,
-//                 moment
-//             });
-//         });
-//     } else {
-//         res.redirect(`/${req.params.id}`);
-//     }
-// });
+// GET to show an event
+router.get("/:id", (req, res, next) => {
+  const eventId = req.params.id;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else {
+      res.render("events/show", {
+        user: req.user,
+        event: event,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+        moment
+      });
+    }
+  });
+});
 
-// // private/events/:id/edit get. Update a event
-// router.post("/:id", (req, res, next) => {
-//     if (req.user.permissions.eventEdit) { // If it has permissions
-//         const eventId = req.params.id;
+// GET to edit an event
+router.get("/:id/edit", (req, res, next) => {
+  const eventId = req.params.id;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else if (event._creator.equals(req.user._id)) { // If it is the creator of the event
+      res.render("events/edit", {
+        user: req.user,
+        event: event,
+        categories: CATEGORIES,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+      });
+    } else { // If it is not the creator of the event
+      res.redirect("events");
+    }
+  });
+});
 
-//         const updates = {
-//             name: req.body.name,
-//             startingDate: req.body.startingDate,
-//             endDate: req.body.endDate,
-//             level: req.body.level,
-//             available: !!req.body.available
-//         };
-
-//         event.findByIdAndUpdate(eventId, updates, (err, event) => {
-//             if (err) {
-//                 res.render(`events/${eventId}/update`, {
-//                     user: req.user,
-//                     messages: {
-//                         error: err
-//                     }
-//                 });
-//             } else {
-//                 res.redirect("/private/events/list");
-//             }
-//         });
-//     } else {
-//         res.redirect("/private/events");
-//     }
-// });
-
-
-
+// POST to update an event
+router.post("/:id", (req, res, next) => {
+  const eventId = req.params.id;
+  Event.findById(eventId, (err, event) => {
+    if (err) {
+      return next(err);
+    } else if (event._creator.equals(req.user._id)) { // If it is the creator of the event
+      const updateEvent = {
+        name: req.body.name,
+        eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
+        numberPeople: req.body.numberPeople,
+        price: req.body.price,
+        categories: req.body.categories || [],
+        address: req.body.address,
+        location: {
+          type: "Point",
+          coordinates: [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
+        },
+      };
+      Event.findByIdAndUpdate(eventId, updateEvent, (err) => {
+        if (err) {
+          res.render("events/edit", {
+            user: req.user,
+            event: event,
+            categories: CATEGORIES,
+            GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+            messages: {
+              error: err
+            }
+          });
+        } else {
+          res.redirect("/events");
+        }
+      });
+    } else {
+      res.redirect("/events");
+    }
+  });
+});
 
 module.exports = router;

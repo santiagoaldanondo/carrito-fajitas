@@ -1,6 +1,41 @@
+<% if (navScope === "") { %>
+    <div class="col-xs-12 no-padding">
+        <a class="menu-button" href="/auth/facebook"><img class="icon" src="/visual-assets/facebook-icon.png"></a>
+    </div>
+    
+<% } else if (navScope === "events") { %>
+    <div class="col-xs-3 no-padding">
+        <a class="menu-button" href="/events/new"><img class="icon" src="/visual-assets/add-icon.png"></a>
+    </div>
+    <div class="col-xs-3 no-padding">
+        <a class="menu-button" href="/events/fav"><img class="icon" src="/visual-assets/fav-icon.png"></a>
+    </div>
+    <div class="col-xs-3 no-padding">
+        <a class="menu-button" href="/events/assist"><img class="icon" src="/visual-assets/assist-icon.png"></a>
+    </div>
+    <div class="col-xs-3 no-padding">
+        <a class="menu-button" href="/events/search"><img class="icon" src="/visual-assets/search-icon.png"></a>
+    </div>
 
-   <span><img class="events icon" src="/visual-assets/add-icon.png"></span>
-   <span><img class="home icon" src="/visual-assets/fav-icon.png"></span>
-   <span><img class="recipes icon" src="/visual-assets/search-icon.png"></span>
-  
+<% } else if (navScope === "recipe") { %>  
+    <div class="col-xs-4 no-padding">
+        <a class="menu-button" href="/recipe/new"><img class="icon" src="/visual-assets/add-icon.png"></a>
+    </div>
+    <div class="col-xs-4 no-padding">
+        <a class="menu-button" href="/recipe/fav"><img class="icon" src="/visual-assets/fav-icon.png"></a>
+    </div>
+    <div class="col-xs-4 no-padding">
+        <a class="menu-button" href="/recipe/search"><img class="icon" src="/visual-assets/search-icon.png"></a>
+    </div>
 
+<% } else if (navScope === "profile") { %>  
+    <div class="col-xs-4 no-padding">
+        <a class="menu-button" href="/profile/edit"><img class="icon" src="/visual-assets/edit-icon.png"></a>
+    </div>
+    <div class="col-xs-4 no-padding">
+        <a class="menu-button" href="/"><img class="icon" src="/visual-assets/home-icon.png"></a>
+    </div>
+    <div class="col-xs-4 no-padding">
+        <a id="logout" class="menu-button" href="/logout"><img class="icon" src="/visual-assets/logout-icon.png"></a>
+    </div>
+<% } %>

@@ -1,87 +1,269 @@
+/* General CSS */
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 * {
   font-family: 'Open Sans', sans-serif;
 }
 
-body {
+
+/* Modifications to Boostrap classes */
+
+.list-group,
+.list-group-item,
+.container,
+.container-fluid,
+.col-lg-1,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-md-1,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-sm-1,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-xs-1,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9 {
+  padding: 0;
 }
 
-/* @media screen and (min-width: 400px){
-.contents-section {
-  
+.list-group-item {
+  background: #F8F838;
+  background: linear-gradient(to bottom, #F8F8CA, #F8F838);
+}
+
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-xs-5ths {
+  width: 20%;
+  float: left;
+}
+
+@media (min-width: 768px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
   }
-} */
+}
 
-  /* this is the index view, with the recipes content */
-  .section {
-    padding-bottom: 50px;
+@media (min-width: 992px) {
+  .col-md-5ths {
+    width: 20%;
+    float: left;
   }
-
-  .first{
-    background-color: red;
-    /* background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.45), 
-      rgba(0, 0, 0, 0.45)),
-    url("http://www.simplyrecipes.com/wp-content/uploads/2015/04/chicken-fajitas-horiz-b-1200.jpg") no-repeat; */
 }
 
-  .second{
-    background-color: blue;
-    /* background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.45), 
-      rgba(0, 0, 0, 0.45)),
-    url("http://blog.ticketea.com/wp-content/uploads/2016/06/sushi-1.jpg") no-repeat; */
-}
-  
-
-  .descp{
-    display: inline-block;
-    color: white;
-    font-size: 40px;
+@media (min-width: 1200px) {
+  .col-lg-5ths {
+    width: 20%;
+    float: left;
   }
-
-/* footer and header start here */
-  .menu-section, .nav-section{
-    background-color: #000;
-  }
-
-
-/* this is the menu, at the top */
-.header {
-  background-color: #000;
-
-}
-.menu-section {
-  border-radius: 5px 5px 0px 0px; 
 }
 
-span{
-    display:inline-block;    
-    width:33%;
-    text-align:center;
-}
-  
-/* nav bar at the bottom */
- .nav-section {
-} 
 
-.icon {
-   width: 10%; 
-}
+/* Common general classes */
+
 .centered {
   float: none;
-  margin: 10px auto;
+  margin: auto;
   text-align: center;
+  vertical-align: middle;
 }
 
+.no-padding {
+  padding: 0;
+  height: 100%;
+}
+
+.inside-list {
+  padding: 5px 3px 5px 10px;
+}
+
+.icon {
+  height: 5vh
+}
+
+.small-icon {
+  height: 1em;
+}
+
+.message {
+  box-sizing: border-box;
+  color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.error {
+  background: #d32;
+}
+
+
+/* Common ids */
+
 #map {
-  width: 400px;
+  max-width: 100%;
   height: 400px;
 }
 
 #latitude,
 #longitude {
   display: none;
+}
+
+
+/* common to menu and nav */
+
+.menu-section,
+.nav-section {
+  text-align: center;
+  height: 5vh;
+}
+
+.menu-button,
+.nav-button {
+  display: block;
+  height: 100%;
+  background: #E16756;
+  background: linear-gradient(to right, #E14736, #E16756);
+}
+
+
+/* contents, in the middle */
+
+.contents-section {
+  margin: 5vh 0px;
+}
+
+.home-container {
+  position: relative;
+  height: 90vh;
+}
+
+.home-content {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  background-image: url("../images/main-background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.home-title {
+  margin: 40vh auto;
+  color: #E0260C;
+  font-size: 10vw;
+  font-weight: bolder;
+  background-color: rgba(256, 256, 256, 0.5)
+}
+
+.home-text {
+  margin: 40vh auto;
+  color: #E0260C;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgba(256, 256, 256, 0.6)
+}
+
+@media (min-width: 992px) {
+  .home-title {
+    font-size: 5vw;
+  }
+}
+
+
+/* menu, at the top */
+
+.menu-fixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+}
+
+.menu-section {
+  border-radius: 5px 5px 0px 0px;
+}
+
+
+/* nav bar at the bottom */
+
+.nav-fixed {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+}
+
+
+/* Particular classes that must step over general classes*/
+
+.list-selected {
+  background: #38F8F8;
+  background: linear-gradient(to bottom, #CAF8F8, #38F8F8);
+}
+
+.list-hidden {
+  display: none;
+}
+
+.menu-selected,
+.nav-selected {
+  background: #56E167;
+  background: linear-gradient(to right, #36E147, #56E167);
+}
+
+.prevent-default {
+  background: #E19786;
+  background: linear-gradient(to right, #E1a796, #E1b7a6);
 }

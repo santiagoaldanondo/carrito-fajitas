@@ -5,55 +5,74 @@ const CATEGORIES = require("./food-categories");
 const EventSchema = new Schema({
   name: {
     type: String,
-    required: [true, "You need a name for your Event"]
+    required: [true, "You need a name for your event"]
   },
-  categories: [{
-    type: String,
-    enum: CATEGORIES,
-    required: true
-  }],
   eventDate: {
     type: Date
   },
   numberPeople: {
     type: Number,
-    required: true
+    required: [true, "Specify how many people your event will be hosting"]
   },
+  price: {
+    type: Number,
+    required: [true, "Specify the price per person"]
+  },
+  categories: [{
+    type: String,
+    enum: CATEGORIES
+  }],
+  location: Schema.Types.GeoJSON,
   _creator: {
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  _favorites: {
+  address: String,
+  _favorites: [{
     type: Schema.Types.ObjectId,
     ref: "User"
+  }],
+  _assistants: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  numberAssistants: {
+    type: Number,
+    default: 0
   },
-  _requests: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  },
-  _assistants: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+  isFull: {
+    type: Boolean,
+    default: false
   },
   _recipes: [{
     type: Schema.Types.ObjectId,
     ref: "Recipe"
-  }],
-  price: {
-    type: Number,
-    required: true
-  },
-  location: Schema.Types.GeoJSON
+  }]
 }, {
   timestamps: {
     createdAt: "created_at",
     updatedAt: "updated_at"
   }
+}).plugin(function (schema) {
+  schema.pre("save", function (next) {
+    this.numberAssistants = this._assistants.length;
+    this.isFull = (this.numberAssistants >= this.numberPeople);
+
+    next();
+  });
 });
 
 EventSchema.index({
   location: "2dsphere"
 });
+
+EventSchema.methods.hasIdInArray = function (id, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (id.toString() === array[i].toString())
+      return i;
+  }
+  return -1;
+};
 
 const Event = mongoose.model("Event", EventSchema);
 module.exports = Event;
