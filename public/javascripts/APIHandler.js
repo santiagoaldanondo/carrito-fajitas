@@ -37,12 +37,12 @@ class APIHandler {
   }
 
   toggleFav(data, callback) {
-    var url = "/api/v1/events/toggleFav";
+    var url = "/api/v1/" + window.location.pathname.split("/")[1] + "/toggleFav";
     this.callToAPI(url, "POST", callback, data);
   }
 
   toggleAssist(data, callback) {
-    var url = "/api/v1/events/toggleAssist";
+    var url = "/api/v1/" + window.location.pathname.split("/")[1] + "/toggleAssist";
     this.callToAPI(url, "POST", callback, data);
   }
 

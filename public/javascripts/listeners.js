@@ -27,7 +27,7 @@ listenSelectList();
 function listenFav() {
   $(".fav-glyphicon").on("click", function (e) {
     var data = {
-      eventId: $(e.target.closest(".event-id")).attr("id")
+      itemId: $(e.target.closest(".item-id")).attr("id")
     };
     myApiListen.toggleFav(data, function () {
       $(e.target).toggleClass("glyphicon-heart-empty glyphicon-heart");
@@ -39,7 +39,7 @@ listenFav();
 function listenAssist() {
   $(".assist-glyphicon").on("click", function (e) {
     var data = {
-      eventId: $(e.target.closest(".event-id")).attr("id")
+      itemId: $(e.target.closest(".item-id")).attr("id")
     };
     myApiListen.toggleAssist(data, function () {
       $(e.target).toggleClass("glyphicon-shopping-cart glyphicon-cutlery");

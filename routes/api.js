@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/event");
+const Recipe = require("../models/recipe");
 
 // Moment to format dates
 const moment = require("moment");
@@ -14,6 +15,7 @@ router.get("/v1/getUserCoord", (req, res) => {
   res.json(coordBack);
 });
 
+// API to search events
 router.post("/v1/events/search", (req, res) => {
   var query = {};
   if (req.body.startDate !== "") {
@@ -53,9 +55,33 @@ router.post("/v1/events/search", (req, res) => {
   });
 });
 
+// API to toggle favorites from recipes
+router.post("/v1/recipes/toggleFav", (req, res, next) => {
+  var itemId = req.body.itemId;
+  Recipe.findById(itemId, (err, recipe) => {
+    if (err) {
+      return next(err);
+    } else {
+      var index = recipe.hasIdInArray(req.user._id, recipe._favorites);
+      if (index > -1)
+        recipe._favorites.splice(index, 1);
+      else
+        recipe._favorites.push(req.user._id);
+    }
+    recipe.save((err) => {
+      if (err) {
+        return next(err);
+      } else {
+        res.json({});
+      }
+    });
+  });
+});
+
+// API to toggle favorites from events
 router.post("/v1/events/toggleFav", (req, res, next) => {
-  var eventId = req.body.eventId;
-  Event.findById(eventId, (err, event) => {
+  var itemId = req.body.itemId;
+  Event.findById(itemId, (err, event) => {
     if (err) {
       return next(err);
     } else {
@@ -75,9 +101,10 @@ router.post("/v1/events/toggleFav", (req, res, next) => {
   });
 });
 
+// API to toggle assistants from events
 router.post("/v1/events/toggleAssist", (req, res, next) => {
-  var eventId = req.body.eventId;
-  Event.findById(eventId, (err, event) => {
+  var itemId = req.body.itemId;
+  Event.findById(itemId, (err, event) => {
     if (err) {
       return next(err);
     } else {
