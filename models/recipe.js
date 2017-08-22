@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const CATEGORIES = require("./food-categories");
 
-const RecipeSchema = new Schema;
+const RecipeSchema = new Schema({}, {
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
+});
 RecipeSchema.add({
   name: {
     type: String,
@@ -48,11 +53,6 @@ RecipeSchema.add({
     type: Schema.Types.ObjectId,
     ref: "Event"
   }]
-}, {
-  timestamps: {
-    createdAt: "created_at",
-    updatedAt: "updated_at"
-  }
 });
 
 RecipeSchema.methods.hasIdInArray = function (id, array) {
