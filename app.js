@@ -11,7 +11,7 @@ const expressLayouts = require("express-ejs-layouts");
 const index = require("./routes/index");
 const auth = require("./routes/auth");
 const profile = require("./routes/profile");
-const recipe = require("./routes/recipe");
+const recipes = require("./routes/recipes");
 const api = require("./routes/api");
 const events = require("./routes/events");
 
@@ -90,7 +90,7 @@ app.use((req, res, next) => {
 app.use("/", auth);
 app.use("/", index);
 app.use("/profile", profile);
-app.use("/recipe", recipe);
+app.use("/recipes", recipes);
 app.use("/api", api);
 app.use("/events", events);
 

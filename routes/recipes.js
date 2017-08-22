@@ -5,23 +5,29 @@ const CATEGORIES = require("../models/food-categories");
 require("dotenv").config();
 
 // GET to show the user's recipes
-router.get("/", (req, res, next) => {
-  const userId = req.user._id;
-  Recipe.find({_creator: userId}, (err, recipes) => {
+router.get("/", (req, res) => {
+  Recipe.find({}, (err) => {
     if (err) {
       throw err;
     }
-  }).then(function (recipes) {
-    res.render("recipe", {
-      user: req.user,
-      recipes: recipes
-    });
+  }).populate("_creator")
+  .then(function (recipes) {
+    if (recipes.length === 0) {
+      res.render("recipes", {
+        user: req.user
+      });
+    } else {
+      res.render("recipes/list", {
+        user: req.user,
+        recipes: recipes 
+      });
+    }
   });
 });
 
 // Use form to create new recipe
 router.get("/new", (req, res, next) => {
-  res.render("recipe/new", {
+  res.render("recipes/new", {
     categories: CATEGORIES
   });
 });
@@ -37,19 +43,20 @@ router.post("/", (req, res, next) => {
     numberPeople: req.body.numberPeople,
     cookingTime: req.body.cookingTime,
     preparationTime: req.body.preparationTime,
-    _creator: userId
+    _creator: userId,
+    _favorites: []
   });
 
   newRecipe.save((err) => {
     if (err) {
-      res.render("recipe/new", {
+      res.render("recipes/new", {
         categories: CATEGORIES,
         messages: {
           error: err
         }
       });
     } else {
-      res.redirect("events");
+      res.redirect("recipes");
     }
   });
 });
