@@ -24,6 +24,7 @@ const UserSchema = new Schema({
     ref: "Event"
   }],
   address: String,
+  picturePath: String,
   location: Schema.Types.GeoJSON
 }, {
   timestamps: {
