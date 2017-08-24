@@ -8,6 +8,7 @@
     "postinstall": "./node_modules/bower/bin/bower install"
   },
   "dependencies": {
+    "aws-sdk": "^2.102.0",
     "body-parser": "^1.17.2",
     "bower": "^1.8.0",
     "connect-mongo": "^1.3.2",
@@ -23,6 +24,7 @@
     "mongoose": "^4.11.3",
     "mongoose-geojson-schema": "^2.1.2",
     "morgan": "^1.8.2",
+    "multer": "^1.3.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",

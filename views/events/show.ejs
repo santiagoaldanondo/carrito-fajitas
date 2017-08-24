@@ -1,4 +1,4 @@
-<div class="event-id" id="<%= event.id%>">
+<div class="item-id" id="<%= event.id%>">
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="col-xs-9 col-sm-10 inside-list">
@@ -6,7 +6,7 @@
                 <div><%= moment(event.eventDate).format("MMM Do YYYY") %></div>
             </div>
             <div class="col-xs-3 col-sm-2 inside-list">
-                <div><img class="small-icon" src="/visual-assets/dish-icon.png"/> <%= event.numberPeople %></div>
+                <div><img class="small-icon" src="/visual-assets/people-icon.png"/> <%= event.numberPeople %></div>
                 <div><%= event.price %> €</div>
             </div>
         </div>
@@ -47,3 +47,5 @@
         </div>
     </div>                    
 </div>
+
+<div id="map" class="col-sm-12 centered"></div>
