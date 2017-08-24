@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
     } else {
       res.render("recipes/list", {
         user: req.user,
-        recipes: recipes 
+        recipes: recipes
       });
     }
   });
@@ -61,5 +61,78 @@ router.post("/", (req, res, next) => {
   });
 });
 
+
+// GET to show a recipe
+router.get("/:id", (req, res, next) => {
+  const recipeId = req.params.id;
+  console.log("holi");
+  Recipe.findById(recipeId, (err, recipe) => {
+    if (err) {
+      return next(err);
+    } else {
+      res.render("recipes/show", {
+        user: req.user,
+        recipe: recipe,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+        moment
+      });
+    }
+  });
+});
+
+// GET to edit a recipe
+router.get("/:id/edit", (req, res, next) => {
+  const recipeId = req.params.id;
+  Recipe.findById(recipeId, (err, recipe) => {
+    if (err) {
+      return next(err);
+    } else if (recipe._creator.equals(req.user._id)) { // If it is the creator of the recipe
+      res.render("recipes/edit", {
+        user: req.user,
+        recipes: recipes,
+        categories: CATEGORIES,
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+      });
+    } else { // If it is not the creator of the recipe
+      res.redirect("recipes");
+    }
+  });
+});
+
+// POST to update arecipe
+router.post("/:id", (req, res, next) => {
+  const recipeId = req.params.id;
+  Recipe.findById(recipeId, (errrecipe) => {
+    if (err) {
+      return next(err);
+    } else if (recipe._creator.equals(req.user._id)) { // If it is the creator of the recipe
+      const updateRecipe = {
+        name: req.body.name,
+        recipeDate: `${req.body.recipeDateDate}T${req.body.recipeDateTime}`,
+        numberPeople: req.body.numberPeople,
+        price: req.body.price,
+        categories: req.body.categories || [],
+        address: req.body.address
+      };
+      Recipe.findByIdAndUpdate(recipeId, updateRecipe, (err) => {
+        if (err) {
+          res.render("recipes/edit", {
+            user: req.user,
+            recipe: recipe,
+            categories: CATEGORIES,
+            GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+            messages: {
+              error: err
+            }
+          });
+        } else {
+          res.redirect("/recipes");
+        }
+      });
+    } else {
+      res.redirect("/recipes");
+    }
+  });
+});
 module.exports = router;
 // navScope: "recipe"
