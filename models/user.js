@@ -10,11 +10,6 @@ const UserSchema = new Schema({
     unique: [true, "That name already exists"]
   },
   facebookID: String,
-  categories: [{
-    type: String,
-    enum: CATEGORIES,
-    required: true
-  }],
   _recipes: [{
     type: Schema.Types.ObjectId,
     ref: "Recipe"

@@ -11,45 +11,47 @@ router.get("/", (req, res) => {
       throw err;
     }
   }).populate("_creator")
-  .then(function (recipes) {
-    if (recipes.length === 0) {
-      res.render("recipes", {
-        user: req.user
-      });
-    } else {
-      res.render("recipes/list", {
-        user: req.user,
-        recipes: recipes
-      });
-    }
-  });
+    .then(function (recipes) {
+      if (recipes.length === 0) {
+        res.render("recipes", {
+          user: req.user
+        });
+      } else {
+        res.render("recipes/list", {
+          user: req.user,
+          recipes: recipes
+        });
+      }
+    });
 });
 
-// Use form to create new recipe
-router.get("/new", (req, res, next) => {
+// GET to create new recipe
+router.get("/new", (req, res) => {
   res.render("recipes/new", {
+    user: req.user,
     categories: CATEGORIES
   });
 });
 
-router.post("/", (req, res, next) => {
-  const userId = req.user._id;
+// POST to save a new recipe
+router.post("/", (req, res) => {
   const newRecipe = new Recipe({
     name: req.body.name,
     ingredients: req.body.ingredients,
     directions: req.body.directions,
-    categories: req.body.categories || [],
+    category: req.body.category || [],
     difficulty: req.body.difficulty,
     numberPeople: req.body.numberPeople,
     cookingTime: req.body.cookingTime,
     preparationTime: req.body.preparationTime,
-    _creator: userId,
+    _creator: req.user._id,
     _favorites: []
   });
 
   newRecipe.save((err) => {
     if (err) {
       res.render("recipes/new", {
+        user: req.user,
         categories: CATEGORIES,
         messages: {
           error: err
@@ -61,20 +63,40 @@ router.post("/", (req, res, next) => {
   });
 });
 
+// GET to search a recipe
+router.get("/search", (req, res) => {
+  res.render("recipes/search", {
+    user: req.user,
+    categories: CATEGORIES
+  });
+});
+
+// Get to show favorite recipes for the user
+router.get("/fav", (req, res) => {
+  Recipe.find({
+    _favorites: req.user._id
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+  }).populate("_creator").then(function (recipes) {
+    res.render("recipes/list", {
+      user: req.user,
+      recipes: recipes
+    });
+  });
+});
 
 // GET to show a recipe
 router.get("/:id", (req, res, next) => {
   const recipeId = req.params.id;
-  console.log("holi");
   Recipe.findById(recipeId, (err, recipe) => {
     if (err) {
       return next(err);
     } else {
       res.render("recipes/show", {
         user: req.user,
-        recipe: recipe,
-        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
-        moment
+        recipe: recipe
       });
     }
   });
@@ -89,9 +111,8 @@ router.get("/:id/edit", (req, res, next) => {
     } else if (recipe._creator.equals(req.user._id)) { // If it is the creator of the recipe
       res.render("recipes/edit", {
         user: req.user,
-        recipes: recipes,
-        categories: CATEGORIES,
-        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+        recipe: recipe,
+        categories: CATEGORIES
       });
     } else { // If it is not the creator of the recipe
       res.redirect("recipes");
@@ -99,10 +120,10 @@ router.get("/:id/edit", (req, res, next) => {
   });
 });
 
-// POST to update arecipe
+// POST to update a recipe
 router.post("/:id", (req, res, next) => {
   const recipeId = req.params.id;
-  Recipe.findById(recipeId, (errrecipe) => {
+  Recipe.findById(recipeId, (err, recipe) => {
     if (err) {
       return next(err);
     } else if (recipe._creator.equals(req.user._id)) { // If it is the creator of the recipe
@@ -111,7 +132,7 @@ router.post("/:id", (req, res, next) => {
         recipeDate: `${req.body.recipeDateDate}T${req.body.recipeDateTime}`,
         numberPeople: req.body.numberPeople,
         price: req.body.price,
-        categories: req.body.categories || [],
+        category: req.body.category || [],
         address: req.body.address
       };
       Recipe.findByIdAndUpdate(recipeId, updateRecipe, (err) => {
@@ -120,7 +141,6 @@ router.post("/:id", (req, res, next) => {
             user: req.user,
             recipe: recipe,
             categories: CATEGORIES,
-            GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
             messages: {
               error: err
             }
@@ -134,5 +154,5 @@ router.post("/:id", (req, res, next) => {
     }
   });
 });
+
 module.exports = router;
-// navScope: "recipe"

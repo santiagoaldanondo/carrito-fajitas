@@ -21,19 +21,17 @@ RecipeSchema.add({
     type: String,
     required: [true, "You need directions for your recipe"]
   },
-  categories: [{
+  category: {
     type: String,
     enum: CATEGORIES,
-    required: true
-  }],
+  },
   difficulty: {
     type: Number,
-    min: 1,
+    min: 0,
     max: 3
   },
   numberPeople: {
     type: Number,
-    required: true
   },
   cookingTime: {
     type: Number

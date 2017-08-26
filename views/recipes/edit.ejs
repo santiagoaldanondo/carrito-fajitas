@@ -1,51 +1,75 @@
-<h2 class="centered"> Edit your recipe </h2>
-
 <form action="/recipes/<%= recipe._id %>" method="POST">
 
-    <div class="form-group col-xs-12 centered">
-        <label class="centered" for="name">Recipe name</label>
-        <input class="form-control" type="text" id="name" name="name" value="<%= recipe.name %>">
-    </div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="name">Recipe name</label>
+    <input class="form-control" type="text" id="name" name="name" value="<%= recipe.name %>">
+  </div>
 
-    <div class="form-group col-xs-12 centered">
-        <label class="centered" for="recipeDateDate">Date</label>
-        <input class="form-control" type="date" id="recipeDateDate" name="recipeDateDate">
-    </div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="ingredients">Ingredients</label>
+    <input class="form-control" type="text" id="ingredients" name="ingredients" value="<%= recipe.ingredients %>">
+  </div>
 
-    <div class="form-group col-xs-12 centered">
-        <label class="centered" for="eventDateTime">Hour</label>
-        <input class="form-control" type="time" value="00:00" id="recipeDateTime" name="recipeDateTime">
-    </div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="directions">Cooking directions</label>
+    <input class="form-control" type="text" name="directions" id="directions" value="<%= recipe.directions %>">
+  </div>
 
-    <div class="form-group col-xs-12 centered">
-        <label class="centered" for="numberPeople">For how many people?</label>
-        <input class="form-control" type="number" name="numberPeople" id="numberPeople" value="<%= recipe.numberPeople %>">
-    </div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="preparationTime">Preparation time (in hours)</label>
+    <input class="form-control" type="number" step="any" name="preparationTime" id="preparationTime" value="<%= recipe.preparationTime %>">
+  </div>
 
-    <div class="form-group col-xs-12 centered">
-        <label class="centered" for="price">How much will assistants pay?</label>
-        <input class="form-control" type="number" name="price" id="price" value="<%= recipe.price %>">
-    </div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="cookingTime">Cooking time (in hours)</label>
+    <input class="form-control" type="number" step="any" name="cookingTime" id="cookingTime" value="<%= recipe.cookingTime %>">
+  </div>
 
-    <div class="form-group centered">
-        <label class="control-label" for="categories">Recipe category</label>
-        <select multiple="multiple" name="categories" id="categories" class="multiselect-ui form-control">
-            <% categories.forEach((category) => { %>
-                <% if (event.categories.indexOf(category) >= 0) { %>
-                    <option type="text" value="<%= category %>" selected>
-                        <%= category %>
-                    </option>
-                <% } else { %>
-                    <option type="text" value="<%= category %>">
-                        <%= category %>
-                    </option>
-                <% } %>
-            <%  }) %>
-        </select>
-    </div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="difficulty">Difficulty</label>
+    <select class="form-control" type="number" name="difficulty" id="difficulty">
+      <% if (recipe.difficulty === 1) { %>
+        <option value="1" selected="selected">Easy</option>
+        <option value="2">Medium</option>
+        <option value="3">Difficult</option>
+      <% } else if (recipe.difficulty === 2) { %>
+        <option value="1">Easy</option>
+        <option value="2" selected="selected">Medium</option>
+        <option value="3">Difficult</option>
+      <% } else if (recipe.difficulty === 3) { %>
+        <option value="1">Easy</option>
+        <option value="2">Medium</option>
+        <option value="3" selected="selected">Difficult</option>
+      <% } else { %>
+        <option value="1">Easy</option>
+        <option value="2">Medium</option>
+        <option value="3">Difficult</option>
+      <% } %>
+    </select>
+  </div>
 
-    <div id="map" class="col-sm-12 centered"></div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="numberPeople">For how many people?</label>
+    <input class="form-control" type="number" name="numberPeople" id="numberPeople" value="<%= recipe.numberPeople %>">
+  </div>
 
-    <button type="submit" class="btn btn-primary center-block">Update</button>
+  <div class="form-group centered">
+    <label class="control-label" for="category">Food category</label>
+    <select multiple="multiple" name="category" id="category" class="multiselect-ui form-control">
+      <% categories.forEach((category) => { %>
+        <% if (recipe.category === category) { %>
+          <option type="text" value="<%= category %>" selected>
+              <%= category %>
+          </option>
+        <% } else { %>
+          <option type="text" value="<%= category %>">
+              <%= category %>
+          </option>
+        <% } %>
+      <%  }) %>
+    </select>
+  </div>
+
+ <button type="submit" class="btn btn-primary center-block">Update</button>
 
 </form>

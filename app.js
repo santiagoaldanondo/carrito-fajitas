@@ -19,6 +19,8 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = passportConfig();
 
+const aws = require("aws-sdk");
+
 const app = express();
 
 require("dotenv").config();
@@ -45,6 +47,11 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
+
+// Amazon S3 config
+aws.config.region = "eu-central-1";
+aws.Credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.Credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 // session and passport
 app.use(session({
