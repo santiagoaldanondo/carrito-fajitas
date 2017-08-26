@@ -276,7 +276,8 @@ position: fixed;
 }
 
 .prevent-default {
-  background: #c83737;
+  background: #E19786;
+  background: linear-gradient(to right, #E1a796, #E1b7a6);
 }
 
 .btn {
@@ -290,10 +291,16 @@ position: fixed;
   height: 60px;
   }
   
-  .min-height{
+.min-height{
     height: 80px;
   }
 
   .b-right {
     border-right: 1px solid white;
   }
+
+
+.clear-both {
+  clear: both;
+}
+
