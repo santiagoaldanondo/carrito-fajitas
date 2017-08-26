@@ -9,12 +9,14 @@
 
     <div class="form-group col-xs-12 centered">
         <label class="centered" for="eventDateDate">Date</label>
-        <input class="form-control" type="date" id="eventDateDate" name="eventDateDate">
+        <% const eventDateDateVal = (event.eventDate && event.eventDate !== "") ? moment(event.eventDate).format('YYYY-MM-DD') : new Date; %>        
+        <input class="form-control" type="date" id="eventDateDate" name="eventDateDate" value="<%= eventDateDateVal %>">
     </div>
 
     <div class="form-group col-xs-12 centered">
         <label class="centered" for="eventDateTime">Hour</label>
-        <input class="form-control" type="time" value="00:00" id="eventDateTime" name="eventDateTime">
+        <% const eventDateTimeVal = (event.eventDate && event.eventDate !== "") ? moment(event.eventDate).format('HH:mm') : new Date; %>
+        <input class="form-control" type="text" pattern="(?:[01]|2(?![4-9])){1}\d{1}:[0-5]{1}\d{1}" id="eventDateTime" name="eventDateTime" value="<%= eventDateTimeVal %>">
     </div>
 
     <div class="form-group col-xs-12 centered">

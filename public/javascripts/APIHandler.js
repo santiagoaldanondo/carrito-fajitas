@@ -36,13 +36,23 @@ class APIHandler {
     this.callToAPI(url, "POST", callback, data);
   }
 
-  toggleFav(data, callback) {
-    var url = "/api/v1/" + window.location.pathname.split("/")[1] + "/toggleFav";
+  toggleEventsFav(data, callback) {
+    var url = "/api/v1/events/toggleFav";
+    this.callToAPI(url, "POST", callback, data);
+  }
+
+  toggleRecipesFav(data, callback) {
+    var url = "/api/v1/recipes/toggleFav";
     this.callToAPI(url, "POST", callback, data);
   }
 
   toggleAssist(data, callback) {
     var url = "/api/v1/" + window.location.pathname.split("/")[1] + "/toggleAssist";
+    this.callToAPI(url, "POST", callback, data);
+  }
+
+  addRecipeList(data, callback) {
+    var url = "/api/v1/getRecipesForEvent";
     this.callToAPI(url, "POST", callback, data);
   }
 

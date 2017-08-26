@@ -29,7 +29,6 @@ router.post("/v1/recipes/search", (req, res) => {
   if (req.body.ingredients !== "") {
     query.ingredients = new RegExp("^" + req.body.ingredients + "$", "i");
   }
-  console.log(req.body.difficulty);
   if (req.body.difficulty !== "") {
     query.difficulty = parseInt(req.body.difficulty);
   }
@@ -193,5 +192,29 @@ router.get("/v1/sign-s3", (req, res) => {
   });
 });
 
+// API to show a list with the selected recipes
+router.post("/v1/getRecipesForEvent", (req, res) => {
+  const recipeIds = [];
+  Object.keys(req.body).forEach(function (key) {
+    recipeIds.push(req.body[key]);
+  });
+  Recipe.find({
+    "_id": {
+      $in: recipeIds
+    }
+  },
+  (err) => {
+    if (err) {
+      throw err;
+    }
+  }).then(function (recipes) {
+    console.log(recipes);
+    res.render("recipes/list", {
+      layout: false,
+      user: req.user,
+      recipes: recipes
+    });
+  });
+});
 
 module.exports = router;

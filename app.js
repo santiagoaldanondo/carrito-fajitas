@@ -98,6 +98,13 @@ app.use((req, res, next) => {
 // Routes
 app.use("/", auth);
 app.use("/", index);
+app.use((req, res, next) => {
+  if (typeof (req.user) !== "undefined") {
+    next();
+  } else {
+    res.redirect("/");
+  }
+});
 app.use("/profile", profile);
 app.use("/recipes", recipes);
 app.use("/api", api);
