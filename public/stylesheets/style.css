@@ -191,18 +191,15 @@
   left: 0px;
   right: 0px;
   width: 100%;
-  background-image: url("../images/main-background.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
-.home-title {
-  margin: 40vh auto;
-  color: #E0260C;
-  font-size: 10vw;
-  font-weight: bolder;
-  background-color: rgba(256, 256, 256, 0.5)
+.logo {
+top: 22%;
+left: 36%;
+width: 450px;
+height: 450px;
+z-index: 3;
+position: fixed;
 }
 
 .home-text {
