@@ -208,7 +208,6 @@ router.post("/v1/getRecipesForEvent", (req, res) => {
       throw err;
     }
   }).then(function (recipes) {
-    console.log(recipes);
     res.render("recipes/list", {
       layout: false,
       user: req.user,

@@ -125,6 +125,11 @@ if (window.location.pathname === "/events/new") {
   addRecipe();
 }
 
+// Add an input to send localstorage info to backend
+$(".btn-event").on("click", function (e) {
+  $("form").append("<input type='text' name='localStorage' id='localStorage' value=" + JSON.stringify(localStorage) + ">");
+});
+
 
 // file input to Amazon S3
 (() => {
@@ -182,7 +187,4 @@ function addSelectedNav() {
     $(nav).addClass("nav-selected");
   }
 }
-
 addSelectedNav();
-
-// Add selected class for the menu
