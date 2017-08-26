@@ -41,13 +41,18 @@ router.get("/new", (req, res) => {
 
 // POST to submit the new event
 router.post("/", (req, res) => {
-
+  const _recipes = [];
+  const parseLocal = JSON.parse(req.body.localStorage);
+  Object.values(parseLocal).forEach(function (value) {
+    _recipes.push(value);
+  });
   const newEvent = new Event({
     name: req.body.name,
     eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
     numberPeople: req.body.numberPeople,
     price: req.body.price,
     category: req.body.category || [],
+    _recipes: _recipes,
     address: req.body.address,
     location: {
       type: "Point",
@@ -125,14 +130,14 @@ router.get("/:id", (req, res, next) => {
   Event.findById(eventId, (err, event) => {
     if (err) {
       return next(err);
-    } else {
-      res.render("events/show", {
-        user: req.user,
-        event: event,
-        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
-        moment
-      });
     }
+  }).populate("_recipes").populate("_creator").populate("_assistants").then(function (event) {
+    res.render("events/show", {
+      user: req.user,
+      event: event,
+      GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+      moment
+    });
   });
 });
 
