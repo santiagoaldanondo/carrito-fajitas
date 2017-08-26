@@ -1,5 +1,5 @@
 <div class="item-id" id="<%= recipe.id%>">
-    <div class="container-fluid">
+    <div class="container-fluid centered">
         <div class="row-fluid">
             <div class="col-xs-9 col-sm-10 inside-list">
                 <div><%= recipe.name %></div>
@@ -46,10 +46,18 @@
             </div>
             <div class="row-fluid">
                 <div class="col-xs-12 inside-list">
-                    <div><%= recipe._creator.username %></div>
-                    <div><%= recipe.category %></div>
-                    <div><%= recipe.ingredients %></div>
-                    <div><%= recipe.directions %></div>
+                    <div class="title">Creator
+                        <div class="sub-title"><%= recipe._creator.username %></div>
+                    </div>
+                    <div class="title">Category
+                      <div class="sub-title"><%= recipe.category %></div>
+                    </div>
+                    <div class="title">Ingredients
+                      <div class="sub-title"><%= recipe.ingredients %></div>
+                    </div>
+                    <div class="title">Directions
+                      <div class="sub-title"><%= recipe.directions %></div>
+                    </div>
                 </div>
             </div>
         </div>
