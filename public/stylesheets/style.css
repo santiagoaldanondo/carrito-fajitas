@@ -268,3 +268,7 @@ position: fixed;
   background: #E19786;
   background: linear-gradient(to right, #E1a796, #E1b7a6);
 }
+
+.clear-both {
+  clear: both;
+}

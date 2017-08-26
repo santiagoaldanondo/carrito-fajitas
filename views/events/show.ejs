@@ -13,11 +13,11 @@
         <div class="row-fluid">
             <% if (event.hasIdInArray(user._id, event._favorites) > -1) { %>
                 <div class="col-xs-1 inside-list">
-                    <span class="glyphicon fav-glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <span class="glyphicon fav-events fav-glyphicon glyphicon-heart" aria-hidden="true"></span>
                 </div>
             <% } else { %>
                 <div class="col-xs-1 inside-list">
-                    <span class="glyphicon fav-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                    <span class="glyphicon fav-events fav-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
                 </div>
             <% } %>
             <% if (event._creator.equals(user._id)) { %>

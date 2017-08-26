@@ -11,11 +11,11 @@
         <div class="row-fluid">
             <% if (recipe.hasIdInArray(user._id, recipe._favorites) > -1) { %>
                 <div class="col-xs-1 inside-list">
-                    <span class="glyphicon fav-glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <span class="glyphicon fav-recipes fav-glyphicon glyphicon-heart" aria-hidden="true"></span>
                 </div>
             <% } else { %>
                 <div class="col-xs-1 inside-list">
-                    <span class="glyphicon fav-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                    <span class="glyphicon fav-recipes fav-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
                 </div>
             <% } %>
             <% if (recipe._creator.equals(user._id)) { %>
@@ -23,6 +23,9 @@
                     <a href="/recipes/<%= recipe._id%>/edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>                       
                 </div>
             <% } %>
+            <div class="col-xs-1 inside-list">
+                <span class="glyphicon add-glyphicon glyphicon-plus" aria-hidden="true"></span>                       
+            </div>
         </div>
         <div class="list-hidable list-hidden">
             <div class="row-fluid">

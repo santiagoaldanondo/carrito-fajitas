@@ -147,7 +147,8 @@ router.get("/:id/edit", (req, res, next) => {
         user: req.user,
         event: event,
         categories: CATEGORIES,
-        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+        moment
       });
     } else { // If it is not the creator of the event
       res.redirect("events");
