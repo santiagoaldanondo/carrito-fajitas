@@ -23,11 +23,11 @@
             <% if (event._creator.equals(user._id)) { %>
                 <% if (event.hasIdInArray(user._id, event._assistants) > -1) { %>
                     <div class="col-xs-1 inside-list">
-                        <span class="glyphicon assist-glyphicon glyphicon-cutlery" aria-hidden="true"></span>
+                        <span class="glyphicon assist-glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </div>
                 <% } else { %>
                     <div class="col-xs-1 inside-list">
-                        <span class="glyphicon assist-glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                        <span class="glyphicon assist-glyphicon glyphicon-pushpin" aria-hidden="true"></span>
                     </div>
                 <% } %>
             <% } %>

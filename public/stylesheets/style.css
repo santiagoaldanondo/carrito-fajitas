@@ -5,6 +5,15 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+body {
+  color: #c83737;
+  font-size: 18px;
+  font-weight: bold;
+}
+h1{
+  color: #c83737;
+  font-size: 14px;
+}
 
 /* Modifications to Boostrap classes */
 
@@ -64,8 +73,7 @@
 }
 
 .list-group-item {
-  background: #F8F838;
-  background: linear-gradient(to bottom, #F8F8CA, #F8F838);
+  background: white;
 }
 
 .col-xs-5ths,
@@ -133,7 +141,7 @@
 
 .message {
   box-sizing: border-box;
-  color: #eee;
+  color: #E16756;
   padding: 10px;
   border-radius: 5px;
 }
@@ -173,7 +181,6 @@
   display: block;
   height: 100%;
   background: #E16756;
-  background: linear-gradient(to right, #E14736, #E16756);
 }
 
 
@@ -195,11 +202,12 @@
   left: 0px;
   right: 0px;
   width: 100%;
+  background-color: #c83737;
 }
 
 .logo {
 top: 22%;
-left: 36%;
+left: 37%;
 width: 450px;
 height: 450px;
 z-index: 3;
@@ -211,7 +219,6 @@ position: fixed;
   color: #E0260C;
   font-size: 20px;
   font-weight: bold;
-  background-color: rgba(256, 256, 256, 0.6)
 }
 
 @media (min-width: 992px) {
@@ -229,10 +236,12 @@ position: fixed;
   left: 0px;
   right: 0px;
   z-index: 2;
+  
 }
 
 .menu-section {
   border-radius: 5px 5px 0px 0px;
+  
 }
 
 
@@ -244,14 +253,17 @@ position: fixed;
   left: 0px;
   right: 0px;
   z-index: 2;
+  
 }
 
 
 /* Particular classes that must step over general classes*/
 
 .list-selected {
-  background: #38F8F8;
-  background: linear-gradient(to bottom, #CAF8F8, #38F8F8);
+  background: #c83737;
+  color: white;
+  
+  /* background: linear-gradient(to bottom, #CAF8F8, #38F8F8); */
 }
 
 .list-hidden {
@@ -260,8 +272,7 @@ position: fixed;
 
 .menu-selected,
 .nav-selected {
-  background: #56E167;
-  background: linear-gradient(to right, #36E147, #56E167);
+  background: #c83737;
 }
 
 .prevent-default {
@@ -269,6 +280,27 @@ position: fixed;
   background: linear-gradient(to right, #E1a796, #E1b7a6);
 }
 
+.btn {
+  background-color: #c83737;
+  border-color: white;
+  border-width: 2px;
+}
+
+.fb{
+  margin-top:10px;
+  height: 60px;
+  }
+  
+.min-height{
+    height: 80px;
+  }
+
+  .b-right {
+    border-right: 1px solid white;
+  }
+
+
 .clear-both {
   clear: both;
 }
+
