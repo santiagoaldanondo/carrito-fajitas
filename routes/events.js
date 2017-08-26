@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
     eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
     numberPeople: req.body.numberPeople,
     price: req.body.price,
-    categories: req.body.categories || [],
+    category: req.body.category || [],
     address: req.body.address,
     location: {
       type: "Point",
@@ -73,7 +73,6 @@ router.post("/", (req, res) => {
   });
 });
 
-
 // GET to search an event
 router.get("/search", (req, res) => {
   res.render("events/search", {
@@ -82,7 +81,7 @@ router.get("/search", (req, res) => {
   });
 });
 
-// Get to show favorite events for the user
+// GET to show favorite events for the user
 router.get("/fav", (req, res) => {
   Event.find({
     _favorites: req.user._id
@@ -168,7 +167,7 @@ router.post("/:id", (req, res, next) => {
         eventDate: `${req.body.eventDateDate}T${req.body.eventDateTime}`,
         numberPeople: req.body.numberPeople,
         price: req.body.price,
-        categories: req.body.categories || [],
+        category: req.body.category || [],
         address: req.body.address,
         location: {
           type: "Point",

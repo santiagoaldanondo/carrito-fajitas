@@ -47,12 +47,11 @@ router.post("/", upload.single("picturePath"), (req, res, next) => {
     username: req.body.username,
     categories: req.body.categories || [],
     address: req.body.address,
-    picturePath: picturePath,
+    picturePath: req.body.picturePath,
     location: {
       type: "Point",
       coordinates: [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
     }
-
   };
 
   User.findByIdAndUpdate(userId, updates, (err, user) => {

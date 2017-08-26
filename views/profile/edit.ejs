@@ -1,34 +1,28 @@
 <h1 class="centered title"> Edit your profile </h1>
 
-<form action="/profile" method="POST" enctype="multipart/form-data">
+<form>
+  <div class="form-group col-xs-3 col-md-4 centered">
+  </div>
+  <div class="form-group col-xs-6 col-md-4 centered">
+    <input class="form-control" type="file" id="file-input" name="file-input">
+    <p id="status">Please select a file</p>
+    <% if (user.picturePath && user.picturePath !== "") { %>
+      <img id="preview" src="<%= user.picturePath %>">
+    <% } else { %>
+      <img id="preview" src="/images/default.png">
+    <% } %>
+    <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
+  </div>
+</form>
+
+<form action="/profile" method="POST">
+
+  <input class="form-control" type="hidden" id="picturePath" name="picturePath" value="<%= user.picturePath%>">
 
   <div class="form-group col-xs-12 col-md-6 centered">
     <label class="centered" for="username">User name</label>
     <input class="form-control" type="text" id="username" name="username" value="<%= user.username%>">
   </div>
-
-  <div class="form-group col-xs-12 col-md-6 centered">
-    <label class="centered" for="picturePath">User name</label>
-    <input class="form-control" type="file" id="picturePath" name="picturePath" value="<%= user.picturePath%>">
-  </div>
-
-  <div class="form-group centered">
-    <label class="control-label" for="categories">Favorite food categories</label>
-    <select multiple="multiple" name="categories" id="categories" class="multiselect-ui form-control">
-      <% categories.forEach((category) => { %>
-        <% if (user.categories.indexOf(category) >= 0) { %>
-          <option type="text" value="<%= category %>" selected>
-            <%= category %>
-          </option>
-        <% } else { %>
-          <option type="text" value="<%= category %>">
-            <%= category %>
-          </option>
-        <% } %>
-      <%  }) %>
-    </select>
-  </div>
-
 
   <div class="form-group col-xs-12 col-md-6 centered">
     <label class="centered" for="address">Address</label>
