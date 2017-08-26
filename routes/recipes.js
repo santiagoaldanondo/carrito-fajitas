@@ -7,10 +7,10 @@ require("dotenv").config();
 // GET to show the user's recipes
 router.get("/", (req, res) => {
   Recipe.find({}, (err) => {
-    if (err) {
-      throw err;
-    }
-  }).populate("_creator")
+      if (err) {
+        throw err;
+      }
+    }).populate("_creator")
     .then(function (recipes) {
       if (recipes.length === 0) {
         res.render("recipes", {
@@ -93,12 +93,12 @@ router.get("/:id", (req, res, next) => {
   Recipe.findById(recipeId, (err, recipe) => {
     if (err) {
       return next(err);
-    } else {
-      res.render("recipes/show", {
-        user: req.user,
-        recipe: recipe
-      });
     }
+  }).populate("_creator").then(function (recipe) {
+    res.render("recipes/show", {
+      user: req.user,
+      recipe: recipe
+    });
   });
 });
 
