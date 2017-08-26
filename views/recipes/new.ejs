@@ -1,4 +1,17 @@
+<form>
+  <div class="form-group col-xs-3 col-md-4 centered">
+  </div>
+  <div class="form-group col-xs-6 col-md-4 centered">
+    <input class="form-control" type="file" id="file-input" name="file-input">
+    <p id="status">Please select a file</p>
+    <img id="preview" src="/images/default.png">
+    <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
+  </div>
+</form>
+
 <form action="/recipes" method="POST">
+
+  <input class="form-control" type="hidden" id="picturePath" name="picturePath" value="">
 
   <div class="form-group col-xs-12 centered">
     <label class="centered" for="name">Recipe name</label>

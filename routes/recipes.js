@@ -7,10 +7,10 @@ require("dotenv").config();
 // GET to show the user's recipes
 router.get("/", (req, res) => {
   Recipe.find({}, (err) => {
-      if (err) {
-        throw err;
-      }
-    }).populate("_creator")
+    if (err) {
+      throw err;
+    }
+  }).populate("_creator")
     .then(function (recipes) {
       if (recipes.length === 0) {
         res.render("recipes", {
@@ -43,6 +43,7 @@ router.post("/", (req, res) => {
     difficulty: req.body.difficulty,
     numberPeople: req.body.numberPeople,
     cookingTime: req.body.cookingTime,
+    picturePath: req.body.picturePath,
     preparationTime: req.body.preparationTime,
     _creator: req.user._id,
     _favorites: []
@@ -129,6 +130,7 @@ router.post("/:id", (req, res, next) => {
     } else if (recipe._creator.equals(req.user._id)) { // If it is the creator of the recipe
       const updateRecipe = {
         name: req.body.name,
+        picturePath: req.body.picturePath,
         recipeDate: `${req.body.recipeDateDate}T${req.body.recipeDateTime}`,
         numberPeople: req.body.numberPeople,
         price: req.body.price,

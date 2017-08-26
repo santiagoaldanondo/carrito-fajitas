@@ -39,6 +39,7 @@ RecipeSchema.add({
   preparationTime: {
     type: Number
   },
+  picturePath: String,
   _creator: {
     type: Schema.Types.ObjectId,
     ref: "User"

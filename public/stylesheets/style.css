@@ -10,10 +10,12 @@ body {
   font-size: 18px;
   font-weight: bold;
 }
-h1{
+
+h1 {
   color: #c83737;
   font-size: 14px;
 }
+
 
 /* Modifications to Boostrap classes */
 
@@ -206,12 +208,10 @@ h1{
 }
 
 .logo {
-top: 22%;
-left: 37%;
-width: 450px;
-height: 450px;
-z-index: 3;
-position: fixed;
+  margin: 20vh auto;
+  width: 300px;
+  height: 300px;
+  z-index: 3;
 }
 
 .home-text {
@@ -236,12 +236,10 @@ position: fixed;
   left: 0px;
   right: 0px;
   z-index: 2;
-  
 }
 
 .menu-section {
   border-radius: 5px 5px 0px 0px;
-  
 }
 
 
@@ -253,7 +251,6 @@ position: fixed;
   left: 0px;
   right: 0px;
   z-index: 2;
-  
 }
 
 
@@ -262,7 +259,6 @@ position: fixed;
 .list-selected {
   background: #c83737;
   color: white;
-  
   /* background: linear-gradient(to bottom, #CAF8F8, #38F8F8); */
 }
 
@@ -286,21 +282,19 @@ position: fixed;
   border-width: 2px;
 }
 
-.fb{
-  margin-top:10px;
+.fb {
+  margin-top: 10px;
   height: 60px;
-  }
-  
-.min-height{
-    height: 80px;
-  }
+}
 
-  .b-right {
-    border-right: 1px solid white;
-  }
+.min-height {
+  height: 80px;
+}
 
+.b-right {
+  border-right: 1px solid white;
+}
 
 .clear-both {
   clear: both;
 }
-
