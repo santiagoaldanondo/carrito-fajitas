@@ -54,7 +54,7 @@ function listenAssist() {
       itemId: $(e.target.closest(".item-id")).attr("id")
     };
     myApi.toggleAssist(data, function () {
-      $(e.target).toggleClass("glyphicon-shopping-cart glyphicon-cutlery");
+      $(e.target).toggleClass("glyphicon-pushpin glyphicon-remove");
     });
   });
 }
