@@ -42,7 +42,6 @@ router.get("/edit", (req, res, next) => {
 // POST to update the user's profile
 router.post("/", upload.single("picturePath"), (req, res, next) => {
   const userId = req.user._id;
-  const picturePath = req.file.filename ? process.env.UPLOAD_PATH + req.file.filename : null;
   const updates = {
     username: req.body.username,
     categories: req.body.categories || [],
