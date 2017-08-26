@@ -1,48 +1,55 @@
-<p>this is what you've been looking form baby</p>
-<form action="/recipes" method="post">
-  
-  <div class="form-group col-xs-4 centered">
-  <label class="centered" for="name">Name</label>
-<input class="form-control" type="text" name="name">
+<form action="/recipes" method="POST">
 
-<div class="form-group col-xs-4 centered">
-<label class="centered" for="ingredients">Ingredients</label>
-<input class="form-control" type="text" name="ingredients">
-</div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="name">Recipe name</label>
+    <input class="form-control" type="text" id="name" name="name">
+  </div>
 
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="ingredients">Ingredients</label>
+    <input class="form-control" type="text" id="ingredients" name="ingredients">
+  </div>
 
-<label class="centered" for="directions">Directions</label>
-<input class="form-control" type="text" name="directions"><br>
-</div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="directions">Cooking directions</label>
+    <input class="form-control" type="text" name="directions" id="directions">
+  </div>
 
-<div class="form-group col-xs-4 centered">
-<label for="categories">Categories</label><br>
-<select multiple name="categories" id= "categories">
-  <% categories.forEach((category) => { %>
-  <option type="text" class= "form-control" value="<%= category %>"><%= category %></option>
-  <%  }) %>
-  </select>
-</div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="preparationTime">Preparation time (in hours)</label>
+    <input class="form-control" type="number" step="any" name="preparationTime" id="preparationTime">
+  </div>
 
-<div class="form-group col-xs-4 centered">
-<label class="centered" for="difficulty">Difficulty</label>
-<input class="form-control" type="number" min="1" max="3" name="difficulty">
-</div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="cookingTime">Cooking time (in hours)</label>
+    <input class="form-control" type="number" step="any" name="cookingTime" id="cookingTime">
+  </div>
 
-<div class="form-group col-xs-4 centered">
-<label class="centered" for="numberPeople">Number of people</label>
-<input class="form-control" type="number" name="numberPeople">
-</div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="difficulty">Difficulty</label>
+    <select class="form-control" type="number" name="difficulty" id="difficulty">
+      <option value="1">Easy</option>
+      <option value="2">Medium</option>
+      <option value="3">Difficult</option>
+    </select>
+  </div>
 
-<div class="form-group col-xs-4 centered">
-<label class="centered" for="cookingTime">Cooking time</label>
-<input class="form-control" type="number" name="cookingTime">
-</div>
+  <div class="form-group col-xs-12 centered">
+    <label class="centered" for="numberPeople">For how many people?</label>
+    <input class="form-control" type="number" name="numberPeople" id="numberPeople">
+  </div>
 
-<div class="form-group col-xs-4 centered">
-<label class="centered" for="preparationTime">Preparation time</label>
-<input class="form-control" type="number" name="preparationTime">
-</div>
+  <div class="form-group centered">
+    <label class="control-label" for="category">Food category</label>
+    <select name="category" id="category" class="form-control">
+      <% categories.forEach((category) => { %>
+          <option type="text" value="<%= category %>">
+            <%= category %>
+          </option>
+      <%  }) %>
+    </select>
+  </div>
 
-<input type="submit" value="Save">
+ <button type="submit" class="btn btn-primary center-block">Create</button>
+
 </form>

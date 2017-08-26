@@ -3,12 +3,6 @@
 <img src="../../uploads/741d9767f46c9ad603feb4df3d3ba1e2">
 <ul class="list-group centered">
   <li class="list-group-item"> Username: <%= user.username %> </li>
-  <li class="list-group-item"> Favorite foods: </li>
-  <ul class="list-group">
-    <% user.categories.forEach((category) => { %>
-      <li class="list-group-item"><%= category %></li>
-    <% }) %>
-  </ul>
   <li class="list-group-item"> Address: <%= user.address %> </li>
 </ul>
 

@@ -18,10 +18,10 @@ const EventSchema = new Schema({
     type: Number,
     required: [true, "Specify the price per person"]
   },
-  categories: [{
+  category: {
     type: String,
     enum: CATEGORIES
-  }],
+  },
   location: Schema.Types.GeoJSON,
   _creator: {
     type: Schema.Types.ObjectId,
