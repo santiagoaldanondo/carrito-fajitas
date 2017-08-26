@@ -1,17 +1,17 @@
 /* General CSS */
-
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-* {
-  font-family: 'Open Sans', sans-serif;
-}
-
 body {
-  color: #c83737;
+  font-family: 'Roboto', sans-serif;
+  color: grey;
   font-size: 18px;
   font-weight: bold;
 }
+
+.glyphicon{
+  color:#c83737;
+}
+
 h1{
-  color: #c83737;
+  color: #ffa532;
   font-size: 14px;
 }
 
@@ -180,9 +180,15 @@ h1{
 .nav-button {
   display: block;
   height: 100%;
-  background: #E16756;
 }
 
+.menu-button {
+  background: #ffdd7e;
+}
+
+.nav-button {
+  background: #ffba5a;
+}
 
 /* contents, in the middle */
 
@@ -202,7 +208,7 @@ h1{
   left: 0px;
   right: 0px;
   width: 100%;
-  background-color: #c83737;
+  background: linear-gradient(to bottom, #ffdd7e, #ffba5a);
 }
 
 .logo {
@@ -260,10 +266,9 @@ position: fixed;
 /* Particular classes that must step over general classes*/
 
 .list-selected {
-  background: #c83737;
+  background:  #ffa532;
   color: white;
   
-  /* background: linear-gradient(to bottom, #CAF8F8, #38F8F8); */
 }
 
 .list-hidden {
@@ -272,13 +277,10 @@ position: fixed;
 
 .menu-selected,
 .nav-selected {
-  background: #c83737;
+  background:  #ffa532;
 }
 
-.prevent-default {
-  background: #E19786;
-  background: linear-gradient(to right, #E1a796, #E1b7a6);
-}
+
 
 .btn {
   background-color: #c83737;
@@ -295,12 +297,18 @@ position: fixed;
     height: 80px;
   }
 
-  .b-right {
-    border-right: 1px solid white;
-  }
-
 
 .clear-both {
   clear: both;
+}
+
+.title{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sub-title{
+  font-size: 18px;
+  font-weight: bold;
 }
 
