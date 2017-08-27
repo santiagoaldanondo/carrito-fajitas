@@ -7,8 +7,8 @@ const passport = require("passport");
 router.get("/auth/facebook", passport.authenticate("facebook"));
 router.get("/auth/facebook/callback", passport.authenticate("facebook", {
   authType: "reauthenticate",
-  successRedirect: "/",
-  failureRedirect: "/login"
+  successRedirect: "/profile",
+  failureRedirect: "/"
 }));
 
 router.post("/logout", (req, res) => {

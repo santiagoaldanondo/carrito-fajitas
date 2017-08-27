@@ -35,7 +35,8 @@ router.get("/new", (req, res) => {
   res.render("events/new", {
     user: req.user,
     categories: CATEGORIES,
-    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+    moment
   });
 });
 
@@ -43,8 +44,8 @@ router.get("/new", (req, res) => {
 router.post("/", (req, res) => {
   const _recipes = [];
   const parseLocal = JSON.parse(req.body.localStorage);
-  Object.values(parseLocal).forEach(function (value) {
-    _recipes.push(value);
+  Object.keys(parseLocal).map(function (key) {
+    _recipes.push(parseLocal[key]);
   });
   const newEvent = new Event({
     name: req.body.name,
@@ -68,6 +69,7 @@ router.post("/", (req, res) => {
         user: req.user,
         categories: CATEGORIES,
         GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+        moment: moment,
         messages: {
           error: err
         }

@@ -26,11 +26,10 @@ Carrito-fajitas is a web application built with Node, Express and Mongo. It allo
 
 * Use google maps autofill?
 * Publish on facebook
-* Redirect to home when there is no user
 * Add small map to events show and list view 
 * Max width for inside events 
 * Search by location
-* List of assistants
+* Save new event in localhost to retrieve it if your add new recipes 
 
 ## Fixed bugs
 
