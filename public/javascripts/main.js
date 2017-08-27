@@ -24,7 +24,7 @@ listenLogout();
 // Toggle the details from a list
 function listenSelectList() {
   $(".list-selectable").click(function (e) {
-    if (checkTarget(e.target)) {
+    if (!checkGlyphicon(e.target)) {
       if ($(e.target.closest(".list-selectable")).hasClass("list-selected")) {
         $(".list-selectable").removeClass("list-selected");
         $(".list-hidable").addClass("list-hidden");
@@ -39,11 +39,9 @@ function listenSelectList() {
 }
 listenSelectList();
 
-// Returns true if the clicked element is not fav, assist, add, show or edit
-function checkTarget(e) {
-  if (!$(e).hasClass("fav-events") && !$(e).hasClass("fav-recipes") &&
-    !$(e).hasClass("assist-glyphicon") && !$(e).hasClass("add-glyphicon") &&
-    !$(e).hasClass("show-glyphicon") && !$(e).hasClass("edit-glyphicon")) {
+// Returns true if the clicked element is a glyphicon
+function checkGlyphicon(e) {
+  if ($(e).hasClass("glyphicon")) {
     return true;
   } else {
     return false;
@@ -241,12 +239,14 @@ addSelectedNav();
 // Add selected class for the menu
 function addSelectedMenu() {
   $(".menu-button").removeClass("menu-selected");
-  if (window.location.pathname.split("/")[2]) {
-    menu = window.location.pathname.split("/")[2].split("?")[0].length < 24 ?
-      window.location.pathname.split("/")[2].split("?")[0] :
-      window.location.pathname.split("/")[3].split("?")[0];
+  if (window.location.pathname.split("/")[3]) {
+    menu = window.location.pathname.split("/")[3].split("?")[0];
+  } else if (window.location.pathname.split("/")[2] && window.location.pathname.split("/")[2].split("?").length === 24) {
+    menu = "show";
+  } else if (window.location.pathname.split("/")[2]) {
+    menu = window.location.pathname.split("/")[2].split("?");
   } else {
-    menu = "main";
+    menu = "";
   }
 
   if (menu !== "") {

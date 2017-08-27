@@ -24,7 +24,6 @@ Carrito-fajitas is a web application built with Node, Express and Mongo. It allo
 
 ## Next steps
 
-* Publish on facebook
 * Add small map to events show and list view 
 * Max width for inside events 
 * Search by location

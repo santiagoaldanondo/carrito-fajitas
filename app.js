@@ -77,7 +77,7 @@ app.use((req, res, next) => {
   if (req.originalUrl.split("/")[3]) {
     res.locals.sectionScope = req.originalUrl.split("/")[3].split("?")[0];
   } else if (req.originalUrl.split("/")[2] && req.originalUrl.split("/")[2].split("?")[0].length === 24) {
-    res.locals.sectionScope = "/show";
+    res.locals.sectionScope = "show";
   } else if (req.originalUrl.split("/")[2]) {
     res.locals.sectionScope = req.originalUrl.split("/")[2].split("?")[0];
   } else {
