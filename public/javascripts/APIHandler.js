@@ -15,7 +15,7 @@ class APIHandler {
     });
   }
 
-  getCoord(callback) {
+  getUserCoord(callback) {
     var url = "/api/v1/getUserCoord";
     this.callToAPI(url, "GET", callback);
   }

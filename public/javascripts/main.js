@@ -1,6 +1,10 @@
 // Create a new API handler for the AJAX calls within the app
 var myApi = new APIHandler();
 
+// Define global variables
+var nav = window.location.pathname.split("/")[1].split("?")[0];
+var menu = "";
+
 // Change <a> logout to POST method 
 function listenLogout() {
   if ($("#logout")) {
@@ -206,8 +210,6 @@ function uploadFile(file, signedRequest, url) {
 // Add selected class for the nav
 function addSelectedNav() {
   $(".nav-button").removeClass("nav-selected");
-  var nav = window.location.pathname.split("/")[1].split("?")[0];
-
   if (nav !== "") {
     $(".nav-" + nav).addClass("nav-selected");
   }
@@ -217,7 +219,6 @@ addSelectedNav();
 // Add selected class for the menu
 function addSelectedMenu() {
   $(".menu-button").removeClass("menu-selected");
-  var menu = "";
   if (window.location.pathname.split("/")[2]) {
     menu = window.location.pathname.split("/")[2].split("?")[0].length < 24 ?
       window.location.pathname.split("/")[2].split("?")[0] :
