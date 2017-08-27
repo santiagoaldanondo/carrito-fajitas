@@ -1,6 +1,8 @@
+// Create a new API handler for the AJAX calls within the app
 var myApi = new APIHandler();
 
-function listenLogout() { // Change <a> logout to POST method  
+// Change <a> logout to POST method 
+function listenLogout() {
   if ($("#logout")) {
     $("#logout").on("click", function (e) {
       var myForm = document.createElement("form");
@@ -14,20 +16,36 @@ function listenLogout() { // Change <a> logout to POST method
 }
 listenLogout();
 
-function listenSelectList() { // Allow selecting an item from the list
+// Toggle the details from a list
+function listenSelectList() {
   $(".list-selectable").click(function (e) {
-    if (!$(e.target).hasClass("fav-events") && !$(e.target).hasClass("fav-recipes") &&
-      !$(e.target).hasClass("assist-glyphicon") && !$(e.target).hasClass("add-glyphicon") &&
-      !$(e.target).hasClass("show-glyphicon") && !$(e.target).hasClass("edit-glyphicon")) {
-      $(".list-selectable").removeClass("list-selected"); // Remove list-selected from all
-      $(".list-hidable").addClass("list-hidden");
-      $(e.target.closest(".list-selectable")).addClass("list-selected"); // Add item-selected to current
-      $(e.target.closest(".list-selectable")).find(".list-hidden:first").removeClass("list-hidden"); // Display info for current
+    if (checkTarget(e.target)) {
+      if ($(e.target.closest(".list-selectable")).hasClass("list-selected")) {
+        $(".list-selectable").removeClass("list-selected");
+        $(".list-hidable").addClass("list-hidden");
+      } else {
+        $(".list-selectable").removeClass("list-selected");
+        $(".list-hidable").addClass("list-hidden");
+        $(e.target.closest(".list-selectable")).addClass("list-selected"); // Add item-selected to current
+        $(e.target.closest(".list-selectable")).find(".list-hidden:first").removeClass("list-hidden"); // Display info for current
+      }
     }
   });
 }
 listenSelectList();
 
+// Returns true if the clicked element is not fav, assist, add, show or edit
+function checkTarget(e) {
+  if (!$(e).hasClass("fav-events") && !$(e).hasClass("fav-recipes") &&
+    !$(e).hasClass("assist-glyphicon") && !$(e).hasClass("add-glyphicon") &&
+    !$(e).hasClass("show-glyphicon") && !$(e).hasClass("edit-glyphicon")) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Toggle a user from an event's favorites
 function listenEventsFav() {
   $(".fav-events").on("click", function (e) {
     var data = {
@@ -40,6 +58,7 @@ function listenEventsFav() {
 }
 listenEventsFav();
 
+// Toggle a user from an recipes's favorites
 function listenRecipesFav() {
   $(".fav-recipes").on("click", function (e) {
     var data = {
@@ -52,6 +71,7 @@ function listenRecipesFav() {
 }
 listenRecipesFav();
 
+// Toggle a user from an event's assistants
 function listenAssist() {
   $(".assist-glyphicon").on("click", function (e) {
     var data = {
@@ -124,7 +144,6 @@ function addRecipe() {
     setAdd(); // Set the glyphicon to current state
   });
 }
-
 if (window.location.pathname === "/events/new") {
   addRecipe();
 }

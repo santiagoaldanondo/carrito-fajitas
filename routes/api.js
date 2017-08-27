@@ -24,10 +24,10 @@ router.get("/v1/getUserCoord", (req, res) => {
 router.post("/v1/recipes/search", (req, res) => {
   var query = {};
   if (req.body.name !== "") {
-    query.name = new RegExp("^" + req.body.name + "$", "i");
+    query.name = new RegExp(req.body.name, "i");
   }
   if (req.body.ingredients !== "") {
-    query.ingredients = new RegExp("^" + req.body.ingredients + "$", "i");
+    query.ingredients = new RegExp(req.body.ingredients, "i");
   }
   if (req.body.difficulty !== "") {
     query.difficulty = parseInt(req.body.difficulty);
