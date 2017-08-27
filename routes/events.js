@@ -75,7 +75,7 @@ router.post("/", (req, res) => {
         }
       });
     } else {
-      res.redirect("events");
+      res.redirect("events?valid=yes");
     }
   });
 });
