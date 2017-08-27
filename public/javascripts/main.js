@@ -16,10 +16,14 @@ listenLogout();
 
 function listenSelectList() { // Allow selecting an item from the list
   $(".list-selectable").click(function (e) {
-    $(".list-selectable").removeClass("list-selected"); // Remove list-selected from all
-    $(".list-hidable").addClass("list-hidden");
-    $(e.target.closest(".list-selectable")).addClass("list-selected"); // Add item-selected to current
-    $(e.target.closest(".list-selectable")).find(".list-hidden:first").removeClass("list-hidden"); // Display info for current
+    if (!$(e.target).hasClass("fav-events") && !$(e.target).hasClass("fav-recipes") &&
+      !$(e.target).hasClass("assist-glyphicon") && !$(e.target).hasClass("add-glyphicon") &&
+      !$(e.target).hasClass("show-glyphicon") && !$(e.target).hasClass("edit-glyphicon")) {
+      $(".list-selectable").removeClass("list-selected"); // Remove list-selected from all
+      $(".list-hidable").addClass("list-hidden");
+      $(e.target.closest(".list-selectable")).addClass("list-selected"); // Add item-selected to current
+      $(e.target.closest(".list-selectable")).find(".list-hidden:first").removeClass("list-hidden"); // Display info for current
+    }
   });
 }
 listenSelectList();
@@ -60,6 +64,16 @@ function listenAssist() {
 }
 listenAssist();
 
+// Add recipe to local storage
+function listenAdd() {
+  $(".add-glyphicon").on("click", function (e) {
+    var itemId = $(e.target.closest(".item-id")).attr("id");
+    saveToLocal(itemId);
+    $(e.target).toggleClass("glyphicon-plus glyphicon-ok");
+  });
+}
+listenAdd();
+
 // Search form
 $(".search-form").submit(function (e) {
   e.preventDefault(); // cancel the link itself
@@ -83,16 +97,6 @@ function saveToLocal(id) {
     localStorage.setItem(id, id);
   }
 }
-
-// Add recipe to local storage
-function listenAdd() {
-  $(".add-glyphicon").on("click", function (e) {
-    var itemId = $(e.target.closest(".item-id")).attr("id");
-    saveToLocal(itemId);
-    $(e.target).toggleClass("glyphicon-plus glyphicon-ok");
-  });
-}
-listenAdd();
 
 // Set recipe add-glyphicon
 function setAdd() {
@@ -131,7 +135,7 @@ $(".btn-event").on("click", function (e) {
 });
 
 
-// file input to Amazon S3
+// file input to Amazon S3: listener
 (() => {
   if (document.getElementById("file-input")) {
     document.getElementById("file-input").onchange = () => {
@@ -145,6 +149,7 @@ $(".btn-event").on("click", function (e) {
   }
 })();
 
+// file input to Amazon S3: sign connection
 function getSignedRequest(file) {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", "/api/v1/sign-s3?file-name=" + encodeURIComponent(file.filename) + "&file-type=" + file.type);
@@ -161,6 +166,7 @@ function getSignedRequest(file) {
   xhr.send();
 }
 
+// file input to Amazon S3: upload file
 function uploadFile(file, signedRequest, url) {
   const xhr = new XMLHttpRequest();
   xhr.open("PUT", signedRequest);
@@ -181,10 +187,44 @@ function uploadFile(file, signedRequest, url) {
 // Add selected class for the nav
 function addSelectedNav() {
   $(".nav-button").removeClass("nav-selected");
-  var nav = "." + window.location.pathname.split("/")[1];
+  var nav = window.location.pathname.split("/")[1].split("?")[0];
 
-  if (nav !== ".") {
-    $(nav).addClass("nav-selected");
+  if (nav !== "") {
+    $(".nav-" + nav).addClass("nav-selected");
   }
 }
 addSelectedNav();
+
+// Add selected class for the menu
+function addSelectedMenu() {
+  $(".menu-button").removeClass("menu-selected");
+  var menu = "";
+  if (window.location.pathname.split("/")[2]) {
+    menu = window.location.pathname.split("/")[2].split("?")[0].length < 24 ?
+      window.location.pathname.split("/")[2].split("?")[0] :
+      window.location.pathname.split("/")[3].split("?")[0];
+  } else {
+    menu = "main";
+  }
+
+  if (menu !== "") {
+    $(".menu-" + menu).addClass("menu-selected");
+  }
+}
+addSelectedMenu();
+
+// Get query params from the url
+function getUrlParameter(name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+  var results = regex.exec(location.search);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+// Clear localstorage
+function clearLocalStorage() {
+  if (getUrlParameter("valid")) {
+    localStorage.clear();
+  }
+}
+clearLocalStorage();

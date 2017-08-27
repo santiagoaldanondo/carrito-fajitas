@@ -29,7 +29,7 @@ Carrito-fajitas is a web application built with Node, Express and Mongo. It allo
 * Add small map to events show and list view 
 * Max width for inside events 
 * Search by location
-* Save new event in localhost to retrieve it if your add new recipes 
+* Save new event in localhost to retrieve it if your add new recipes
 
 ## Fixed bugs
 
