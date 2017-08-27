@@ -73,12 +73,13 @@ app.use(passport.session());
 app.use((req, res, next) => {
   // Use the first part of the url to get the current nav
   res.locals.navScope = req.originalUrl.split("/")[1].split("?")[0];
-  // Get the current section of the nav.Use the second part of the url if it 's shorter than the 
-  // number of characters of an ObjectID in mongo(24), otherwise use the third part of the url
-  if (req.originalUrl.split("/")[2]) {
-    res.locals.sectionScope = req.originalUrl.split("/")[2].split("?")[0].length < 24 ?
-      req.originalUrl.split("/")[2].split("?")[0] :
-      req.originalUrl.split("/")[3].split("?")[0];
+  // Get the menu section 
+  if (req.originalUrl.split("/")[3]) {
+    res.locals.sectionScope = req.originalUrl.split("/")[3].split("?")[0];
+  } else if (req.originalUrl.split("/")[2] && req.originalUrl.split("/")[2].split("?")[0].length === 24) {
+    res.locals.sectionScope = "/show";
+  } else if (req.originalUrl.split("/")[2]) {
+    res.locals.sectionScope = req.originalUrl.split("/")[2].split("?")[0];
   } else {
     res.locals.sectionScope = "/";
   }
