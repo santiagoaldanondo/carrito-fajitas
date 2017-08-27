@@ -21,9 +21,7 @@
 
   <div class="menu-fixed container-fluid">
     <div class="row-fluid">
-      <div class="col-md-3">
-      </div>
-      <div class="menu-section col-xs-12 col-md-6 no-padding">
+      <div class="menu-section col-xs-12 col-md-6 col-centered no-padding">
         <% include ../partials/menu %>
       </div>
     </div>
@@ -31,9 +29,7 @@
   
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="col-md-3">
-      </div>
-      <div class="contents-section col-xs-12 col-md-6 no-padding">
+      <div class="contents-section col-xs-12 col-md-6 col-centered no-padding">
         <%- body -%>
 
         <% if (typeof messages !== "undefined" && messages.error) { %>
@@ -46,9 +42,7 @@
 
   <div class="nav-fixed container-fluid">
     <div class="row-fluid">
-      <div class="col-md-3">
-      </div>
-      <div class="nav-section col-xs-12 col-md-6 no-padding">
+      <div class="nav-section col-xs-12 col-md-6 col-centered no-padding">
         <% include ../partials/navigator %>
       </div>
     </div>

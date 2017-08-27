@@ -23,6 +23,7 @@ h1 {
 .list-group-item,
 .container,
 .container-fluid,
+.form-group,
 .col-lg-1,
 .col-lg-10,
 .col-lg-11,
@@ -72,10 +73,16 @@ h1 {
 .col-xs-8,
 .col-xs-9 {
   padding: 0;
+  margin: 0;
 }
 
 .list-group-item {
   background: white;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
 }
 
 .col-xs-5ths,
@@ -196,7 +203,7 @@ h1 {
 /* contents, in the middle */
 
 .contents-section {
-  margin: 5vh 0px;
+  margin: 5vh auto;
 }
 
 .home-container {

@@ -84,6 +84,7 @@ router.post("/", (req, res) => {
 router.get("/search", (req, res) => {
   res.render("events/search", {
     user: req.user,
+    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
     categories: CATEGORIES
   });
 });

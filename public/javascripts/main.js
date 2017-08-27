@@ -8,7 +8,7 @@ var origin = window.location.origin;
 
 // Change <a> logout to POST method 
 function listenLogout() {
-  if ($("#logout")) {
+  if (document.getElementById("logout")) {
     $("#logout").on("click", function (e) {
       var myForm = document.createElement("form");
       myForm.action = this.href; // the href of the link
@@ -80,8 +80,9 @@ function listenAssist() {
     var data = {
       itemId: $(e.target.closest(".item-id")).attr("id")
     };
-    myApi.toggleAssist(data, function () {
+    myApi.toggleAssist(data, function (response) {
       $(e.target).toggleClass("glyphicon-pushpin glyphicon-remove");
+      $(e.target.closest(".item-id")).find(".numberAssistants").first().html(response.numberAssistants);
     });
   });
 }
@@ -102,18 +103,18 @@ function listenShare() {
   $(".glyphicon-share").on("click", function (e) {
     var id = $(e.target).closest(".item-id").attr("id");
     FB.ui({
-      method: "share",
-      href: origin + "/" + nav + "/" + id,
-      mobile_iframe: true
-    },
+        method: "share",
+        href: origin + "/" + nav + "/" + id,
+        mobile_iframe: true
+      },
       // callback
-    function (response) {
-      if (response && !response.error_message) {
-        alert("Posting completed.");
-      } else {
-        alert("Error while posting.");
+      function (response) {
+        if (response && !response.error_message) {
+          alert("Posting completed.");
+        } else {
+          alert("Error while posting.");
+        }
       }
-    }
     );
   });
 }
@@ -122,6 +123,9 @@ listenShare();
 // Search form
 $(".search-form").submit(function (e) {
   e.preventDefault(); // cancel the link itself
+  if (document.getElementById("address")) {
+    geocodeAddress();
+  }
   myApi.searchBox(function (response) { // Query the API to search events
     $(".list-group").remove();
     $(".contents-section").append(response); // Add the response html to the view

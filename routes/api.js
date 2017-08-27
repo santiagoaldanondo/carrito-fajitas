@@ -57,6 +57,7 @@ router.post("/v1/recipes/search", (req, res) => {
 // API to search events
 router.post("/v1/events/search", (req, res) => {
   var query = {};
+  var maxdistance = req.body.distance * 1000 || 50000;
   if (req.body.startDate !== "") {
     query.eventDate = {
       $gte: req.body.startDate
@@ -79,6 +80,17 @@ router.post("/v1/events/search", (req, res) => {
   }
   if (req.body.category !== "") {
     query.category = req.body.category;
+  }
+  if (req.body.address !== "") {
+    query.location = {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
+        },
+        $maxDistance: maxdistance
+      }
+    };
   }
 
   Event.find(query, (err) => {
@@ -160,7 +172,7 @@ router.post("/v1/events/toggleAssist", (req, res, next) => {
       if (err) {
         return next(err);
       } else {
-        res.json({});
+        res.json(event);
       }
     });
   });

@@ -2,7 +2,7 @@
 var geocoder;
 var infoWindow;
 var map;
-var center;
+var center = getNavigatorPosition();
 var markers = [];
 var defaultBounds;
 var input;
@@ -12,28 +12,35 @@ var autocomplete;
 // Instantiate the APIHandler
 var myApiGoogle = new APIHandler();
 
-// Start Google Maps Map, Geocoder and InfoWindow. Called as callback from script in main-layouts
+function startAutoComplete() {
+  if (document.getElementById("address")) {
+    input = document.getElementById("address");
+    defaultBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(center.lat - 0.1, center.lng - 0.1),
+      new google.maps.LatLng(center.lat + 0.1, center.lng + 0.1)
+    );
+    var completeOptions = {
+      bounds: defaultBounds
+    };
+    autocomplete = new google.maps.places.Autocomplete(input, completeOptions);
+  }
+}
+
+
+// Start Google Maps API. Called as callback from script in main-layouts
 function startMap() {
+  // Start autocomplete
+  startAutoComplete();
+
   // Info regarding map
   geocoder = new google.maps.Geocoder();
   infoWindow = new google.maps.InfoWindow;
-  center = getNavigatorPosition();
   var mapOptions = {
     zoom: 8,
     center: center
   };
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-  // Info regarding the Autocomplete
-  input = document.getElementById("address");
-  defaultBounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(center.lat - 0.1, center.lng - 0.1),
-    new google.maps.LatLng(center.lat + 0.1, center.lng + 0.1)
-  );
-  var completeOptions = {
-    bounds: defaultBounds
-  };
-  autocomplete = new google.maps.places.Autocomplete(input, completeOptions);
 
   // Location from the input form
   var location = {
@@ -102,23 +109,25 @@ function deleteMarkers(color) {
 
 // Use direct Geocode to get the location (latitude and longitude) from an address
 function geocodeAddress() {
-  var address = document.getElementById("address").value;
-  geocoder.geocode({
-    "address": address
-  }, function (results, status) {
-    if (status == "OK") {
-      // Different properties depending on the nav section
-      if (nav === "events") {
-        deleteMarkers("red");
-        addMarker(results[0].geometry.location, "red");
-      } else if (nav === "profile") {
-        deleteMarkers("green");
-        addMarker(results[0].geometry.location, "green");
+  if ($("#address").val() !== "") {
+    var address = document.getElementById("address").value;
+    geocoder.geocode({
+      "address": address
+    }, function (results, status) {
+      if (status == "OK") {
+        // Different properties depending on the nav section
+        if (nav === "events") {
+          deleteMarkers("red");
+          addMarker(results[0].geometry.location, "red");
+        } else if (nav === "profile") {
+          deleteMarkers("green");
+          addMarker(results[0].geometry.location, "green");
+        }
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
       }
-    } else {
-      alert("Geocode was not successful for the following reason: " + status);
-    }
-  });
+    });
+  }
 }
 
 // Use reverse Geocode to get an address from a location (latitude and longitude)
@@ -141,6 +150,6 @@ function updateForm(location) {
 }
 
 // Add an event listener to the encode button
-$("#encode").on("click", function () {
+$(".encode").on("click", function () {
   geocodeAddress();
 });

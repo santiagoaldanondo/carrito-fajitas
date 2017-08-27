@@ -6,7 +6,7 @@
                 <div><%= moment(event.eventDate).format("MMM Do YYYY, HH:mm") %></div>
             </div>
             <div class="col-xs-3 col-sm-2 inside-list">
-                <div><img class="small-icon" src="/visual-assets/people-icon.png"/> <%= event.numberPeople %></div>
+                <div><img class="small-icon" src="/visual-assets/people-icon.png"/><span class="numberAssistants"><%= event.numberAssistants %></span>/<%= event.numberPeople %></div>
                 <div><%= event.price %> €</div>
             </div>
         </div>
