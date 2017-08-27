@@ -4,33 +4,66 @@ var infoWindow;
 var map;
 var center;
 var markers = [];
+var defaultBounds;
+var input;
+var autocomplete;
+
 
 // Instantiate the APIHandler
 var myApiGoogle = new APIHandler();
 
 // Start Google Maps Map, Geocoder and InfoWindow. Called as callback from script in main-layouts
 function startMap() {
+  // Info regarding map
   geocoder = new google.maps.Geocoder();
   infoWindow = new google.maps.InfoWindow;
-  center = getUserPosition();
+  center = getNavigatorPosition();
   var mapOptions = {
     zoom: 8,
     center: center
   };
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  myApiGoogle.getCoord(function (response) {
-    addMarker(response);
-  });
 
-  map.addListener("click", function (event) {
-    deleteMarkers();
-    geocodeLatLng(geocoder, map, event.latLng);
-    addMarker(event.latLng);
-  });
+  // Info regarding the Autocomplete
+  input = document.getElementById("address");
+  defaultBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(center.lat - 0.1, center.lng - 0.1),
+    new google.maps.LatLng(center.lat + 0.1, center.lng + 0.1)
+  );
+  var completeOptions = {
+    bounds: defaultBounds
+  };
+  autocomplete = new google.maps.places.Autocomplete(input, completeOptions);
+
+  // Location from the input form
+  var location = {
+    lat: parseFloat($("#latitude").val()),
+    lng: parseFloat($("#longitude").val())
+  };
+
+  // Different properties depending on the nav section
+  if (nav === "events") {
+    addMarker(location, "red");
+    myApiGoogle.getUserCoord(function (response) {
+      addMarker(response, "green");
+    });
+    map.addListener("click", function (e) {
+      geocodeLatLng(geocoder, map, e.latLng);
+      deleteMarkers("red");
+      addMarker(e.latLng, "red");
+    });
+  } else if (nav === "profile") {
+    addMarker(location, "green");
+    map.addListener("click", function (e) {
+      geocodeLatLng(geocoder, map, e.latLng);
+      deleteMarkers("green");
+      addMarker(e.latLng, "green");
+    });
+  }
 }
 
-// Use the navigator to get the user position; if something fails, return Madrid
-function getUserPosition() {
+// Use the navigator to get the current position; if something fails, return Madrid
+function getNavigatorPosition() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       var center = {
@@ -47,9 +80,9 @@ function getUserPosition() {
 }
 
 // Add a marker to the map
-function addMarker(location) {
-  map.setCenter(location);
+function addMarker(location, color) {
   var marker = new google.maps.Marker({
+    icon: "http://maps.google.com/mapfiles/ms/icons/" + color + "-dot.png",
     position: location,
     map: map
   });
@@ -57,12 +90,14 @@ function addMarker(location) {
   updateForm(location);
 }
 
-// Clear all markers from the map and empty the array that contains them
-function deleteMarkers() {
+// Clear all markers with a given color from the map
+function deleteMarkers(color) {
   for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
+    if (markers[i].icon === "http://maps.google.com/mapfiles/ms/icons/" + color + "-dot.png") {
+      markers[i].setMap(null);
+      markers.splice(i, 1);
+    }
   }
-  markers = [];
 }
 
 // Use direct Geocode to get the location (latitude and longitude) from an address
@@ -72,7 +107,14 @@ function geocodeAddress() {
     "address": address
   }, function (results, status) {
     if (status == "OK") {
-      addMarker(results[0].geometry.location);
+      // Different properties depending on the nav section
+      if (nav === "events") {
+        deleteMarkers("red");
+        addMarker(results[0].geometry.location, "red");
+      } else if (nav === "profile") {
+        deleteMarkers("green");
+        addMarker(results[0].geometry.location, "green");
+      }
     } else {
       alert("Geocode was not successful for the following reason: " + status);
     }
