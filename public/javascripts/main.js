@@ -104,6 +104,7 @@ function listenShare() {
     FB.ui({
       method: "share",
       href: origin + "/" + nav + "/" + id,
+      mobile_iframe: true
     },
       // callback
     function (response) {
