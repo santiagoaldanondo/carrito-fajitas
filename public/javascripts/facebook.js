@@ -5,10 +5,6 @@ window.fbAsyncInit = function () {
     xfbml: true,
     version: "v2.10"
   });
-  FB.ui({
-    method: "share",
-    href: "https://developers.facebook.com/docs/"
-  }, function (response) {});
   FB.AppEvents.logPageView();
 };
 

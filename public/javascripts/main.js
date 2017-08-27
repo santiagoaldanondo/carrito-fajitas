@@ -4,6 +4,7 @@ var myApi = new APIHandler();
 // Define global variables
 var nav = window.location.pathname.split("/")[1].split("?")[0];
 var menu = "";
+var origin = window.location.origin;
 
 // Change <a> logout to POST method 
 function listenLogout() {
@@ -97,6 +98,27 @@ function listenAdd() {
   });
 }
 listenAdd();
+
+// Share recipe or event in facebook
+function listenShare() {
+  $(".glyphicon-share").on("click", function (e) {
+    var id = $(e.target).closest(".item-id").attr("id");
+    FB.ui({
+      method: "share",
+      href: origin + "/" + nav + "/" + id,
+    },
+      // callback
+    function (response) {
+      if (response && !response.error_message) {
+        alert("Posting completed.");
+      } else {
+        alert("Error while posting.");
+      }
+    }
+    );
+  });
+}
+listenShare();
 
 // Search form
 $(".search-form").submit(function (e) {
