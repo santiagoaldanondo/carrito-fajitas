@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
     if (err) {
       throw err;
     }
-  }).populate("_creator").sort({
+  }).populate("_creator").populate("_assistants").populate("_recipes").sort({
     eventDate: 1
   }).then(function (events) {
     if (events.length === 0) {
@@ -99,7 +99,7 @@ router.get("/fav", (req, res) => {
     if (err) {
       throw err;
     }
-  }).populate("_creator").sort({
+  }).populate("_creator").populate("_assistants").populate("_recipes").sort({
     eventDate: 1
   }).then(function (events) {
     res.render("events/list", {
@@ -118,7 +118,7 @@ router.get("/assist", (req, res) => {
     if (err) {
       throw err;
     }
-  }).populate("_creator").sort({
+  }).populate("_creator").populate("_assistants").populate("_recipes").sort({
     eventDate: 1
   }).then(function (events) {
     res.render("events/list", {
@@ -136,7 +136,9 @@ router.get("/:id", (req, res, next) => {
     if (err) {
       return next(err);
     }
-  }).populate("_recipes").populate("_creator").populate("_assistants").then(function (event) {
+  }).populate("_recipes").populate("_creator").populate("_assistants").sort({
+    eventDate: 1
+  }).then(function (event) {
     res.render("events/show", {
       user: req.user,
       event: event,

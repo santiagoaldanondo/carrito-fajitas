@@ -97,7 +97,7 @@ router.post("/v1/events/search", (req, res) => {
     if (err) {
       throw err;
     }
-  }).populate("_creator").sort({
+  }).populate("_creator").populate("_assistants").populate("_recipes").sort({
     eventDate: 1
   }).then(function (events) {
     res.render("events/list", {

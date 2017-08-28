@@ -1,9 +1,7 @@
-<h1 class="centered title"> Edit your profile </h1>
+<h1 class="centered title padd-it"> Edit your profile </h1>
 
-<form>
-  <div class="form-group col-xs-3 col-md-4 centered">
-  </div>
-  <div class="form-group col-xs-6 col-md-4 centered">
+<form class= "padd-it">
+  <div class="form-group col-xs-6 col-md-4 col-centered centered">
     <input class="form-control" type="file" id="file-input" name="file-input">
     <p id="status">Please select a file</p>
     <% if (user.picturePath && user.picturePath !== "") { %>
@@ -15,24 +13,24 @@
   </div>
 </form>
 
-<form action="/profile" method="POST">
+<form action="/profile" method="POST" class="padd-it">
 
   <input class="form-control" type="hidden" id="picturePath" name="picturePath" value="<%= user.picturePath%>">
 
-  <div class="form-group col-xs-12 col-md-6 centered">
+  <div class="form-group col-xs-10 col-centered col-md-6 centered">
     <label class="centered" for="username">User name</label>
     <input class="form-control" type="text" id="username" name="username" value="<%= user.username%>">
   </div>
 
-  <div class="form-group col-xs-12 col-md-6 centered">
+  <div class="form-group col-xs-10 col-centered col-md-6 centered">
     <label class="centered" for="address">Address</label>
     <input class="form-control" type="text" name="address" id="address" value="<%= user.address%>">
     <input class="form-control" type="text" name="latitude" id="latitude" value="<%= user.location.coordinates[0]%>">
     <input class="form-control" type="text" name="longitude" id="longitude" value="<%= user.location.coordinates[1]%>">
-    <input type="button" value="search address" class="encode">
+    <input type="button" value="search address" class="encode marg-it">
   </div>
 
-  <div id="map" class="col-sm-12 centered"></div>
+  <div id="map" class="col-xs-10 col-centered centered marg-it"></div>
 
  <button type="submit" class="btn btn-primary center-block">Update</button>
 

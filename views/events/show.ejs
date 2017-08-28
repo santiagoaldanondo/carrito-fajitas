@@ -1,63 +1,49 @@
 <div class="item-id" id="<%= event.id%>">
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="col-xs-9 col-sm-10 inside-list">
-                <div><%= event.name %></div>
+        <div class="row-fluid padd-it">
+            <div class="col-xs-9 col-sm-10">
+                <div class="title"><%= event.name %></div>
                 <div><%= moment(event.eventDate).format("MMM Do YYYY, HH:mm") %></div>
             </div>
-            <div class="col-xs-3 col-sm-2 inside-list">
+            <div class="col-xs-3 col-sm-2">
                 <div><img class="small-icon" src="/visual-assets/people-icon.png"/><span class="numberAssistants"><%= event.numberAssistants %></span>/<%= event.numberPeople %></div>
                 <div><%= event.price %> €</div>
             </div>
         </div>
-        <div class="row-fluid">
-            <% if (event.hasIdInArray(user._id, event._favorites) > -1) { %>
-                <div class="col-xs-1 inside-list">
+        <div class="row-fluid padd-it">
+            <div class="col-xs-12">
+                <a href="/events/<%= event._id%>"><span class="glyphicon show-glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                <% if (event.hasIdInArray(user._id, event._favorites) > -1) { %>
                     <span class="glyphicon fav-events fav-glyphicon glyphicon-heart" aria-hidden="true"></span>
-                </div>
-            <% } else { %>
-                <div class="col-xs-1 inside-list">
-                    <span class="glyphicon fav-events fav-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-                </div>
-            <% } %>
-            <% if (event._creator.equals(user._id)) { %>
-                <% if (event.hasIdInArray(user._id, event._assistants) > -1) { %>
-                    <div class="col-xs-1 inside-list">
-                        <span class="glyphicon assist-glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </div>
                 <% } else { %>
-                    <div class="col-xs-1 inside-list">
-                        <span class="glyphicon assist-glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-                    </div>
+                    <span class="glyphicon fav-events fav-glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
                 <% } %>
-            <% } %>
-            <% if (event._creator.equals(user._id)) { %>
-                <div class="col-xs-1 inside-list">
-                    <a href="/events/<%= event._id%>/edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>                       
-                </div>
-            <% } %>
-        </div>
-        <div class="row-fluid">
-            <div class="col-xs-12 inside-list">
-                <div><%= event._creator.username %></div>
-                <div><%= event.category %></div>
+                <% if (event._creator.equals(user._id) && event.hasIdInArray(user._id, event._assistants) > -1) { %>
+                    <span class="glyphicon assist-glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <% } else if (event._creator.equals(user._id)) { %>
+                    <span class="glyphicon assist-glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                <% } %>
+                <% if (event._creator.equals(user._id)) { %>
+                    <a href="/events/<%= event._id%>/edit"><span class="glyphicon edit-glyphicon glyphicon-pencil" aria-hidden="true"></span></a>                       
+                <% } %>
+                <span class="glyphicon share-glyphicon glyphicon-share" aria-hidden="true"></span>                       
             </div>
         </div>
-        <div class="row-fluid">
-            <ul class="list-group col-xs-12">List of recipes:     
-                <% event._recipes.forEach(function(recipe) { %>
-                    <li class="list-group-item>"><%= recipe.name %></li>
-                <% }) %>
-            </ul>
-        </div>
-        <div class="row-fluid">
-            <ul class="list-group col-xs-12">List of assistants:    
-                <% event._assistants.forEach(function(assistant) { %>
-                    <li class="list-group-item>"><%= assistant.username %></li>
-                <% }) %>
-            </ul>
+        <div class="row-fluid padd-it">
+            <div class="col-xs-12">
+                <div class="sub-title">Creator</div>
+                <p><%= event._creator.username %></p>
+                <div class="sub-title">Category</div>
+                <p><%= event.category %></p>
+                <% if (event._recipes.length > 0) { %>
+                    <div class="sub-title">Recipes</div>
+                    <% event._recipes.forEach((recipe) => { %>
+                        <p class="no-bottom"><%= recipe.name %></p>
+                    <% }) %>
+                <% } %>
+            </div>
         </div>
     </div>                    
 </div>
 
-<div id="map" class="col-sm-12 centered"></div>
+<div id="map" class="col-xs-10 col-centered col-md-6 centered"></div>
