@@ -9,7 +9,9 @@ const moment = require("moment");
 
 // GET to show the main events page (with the user events)
 router.get("/", (req, res) => {
-  Event.find({}, (err) => {
+  Event.find({
+    _creator: req.user._id
+  }, (err) => {
     if (err) {
       throw err;
     }

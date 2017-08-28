@@ -6,7 +6,9 @@ require("dotenv").config();
 
 // GET to show the user's recipes
 router.get("/", (req, res) => {
-  Recipe.find({}, (err) => {
+  Recipe.find({
+    _creator: req.user._id
+  }, (err) => {
     if (err) {
       throw err;
     }

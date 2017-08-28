@@ -103,18 +103,18 @@ function listenShare() {
   $(".glyphicon-share").on("click", function (e) {
     var id = $(e.target).closest(".item-id").attr("id");
     FB.ui({
-        method: "share",
-        href: origin + "/" + nav + "/" + id,
-        mobile_iframe: true
-      },
+      method: "share",
+      href: origin + "/" + nav + "/" + id,
+      mobile_iframe: true
+    },
       // callback
-      function (response) {
-        if (response && !response.error_message) {
-          alert("Posting completed.");
-        } else {
-          alert("Error while posting.");
-        }
+    function (response) {
+      if (response && !response.error_message) {
+        alert("Posting completed.");
+      } else {
+        alert("Error while posting.");
       }
+    }
     );
   });
 }

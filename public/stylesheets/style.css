@@ -172,7 +172,8 @@ h1 {
   display: none;
 }
 
-#preview {
+#preview,
+#img-detail {
   max-width: 100%;
 }
 
