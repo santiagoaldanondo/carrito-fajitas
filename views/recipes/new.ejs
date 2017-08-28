@@ -1,7 +1,7 @@
-<form>
-  <div class="form-group col-xs-3 col-md-4 centered">
-  </div>
-  <div class="form-group col-xs-6 col-md-4 centered">
+<h1 class="centered title padd-it"> Create new recipe </h1>
+
+<form class="padd-it">
+  <div class="form-group col-xs-6 col-md-4 col-centered centered">
     <input class="form-control" type="file" id="file-input" name="file-input">
     <p id="status">Please select a file</p>
     <img id="preview" src="/images/default.png">
@@ -9,36 +9,36 @@
   </div>
 </form>
 
-<form action="/recipes" method="POST">
+<form action="/recipes" method="POST" class="padd-it">
 
   <input class="form-control" type="hidden" id="picturePath" name="picturePath" value="">
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="name">Recipe name</label>
     <input class="form-control" type="text" id="name" name="name">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="ingredients">Ingredients</label>
     <input class="form-control" type="text" id="ingredients" name="ingredients">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="directions">Cooking directions</label>
     <textarea class="form-control" type="text" name="directions" id="directions"></textarea>
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="preparationTime">Preparation time (in hours)</label>
     <input class="form-control" type="number" step="any" name="preparationTime" id="preparationTime">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="cookingTime">Cooking time (in hours)</label>
     <input class="form-control" type="number" step="any" name="cookingTime" id="cookingTime">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="difficulty">Difficulty</label>
     <select class="form-control" type="number" name="difficulty" id="difficulty">
       <option value="1">Easy</option>
@@ -47,12 +47,12 @@
     </select>
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="numberPeople">For how many people?</label>
     <input class="form-control" type="number" name="numberPeople" id="numberPeople">
   </div>
 
-  <div class="form-group centered">
+  <div class="form-group col-xs-10 centered">
     <label class="control-label" for="category">Food category</label>
     <select name="category" id="category" class="form-control">
       <% categories.forEach((category) => { %>

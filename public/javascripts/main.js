@@ -164,6 +164,7 @@ function addRecipe() {
   var data = localStorage;
   myApi.addRecipeList(data, function (response) {
     $(".list-group").remove();
+    $(".recipes-section").prepend("<label class='control-label'>Recipes</label>");
     $(".recipes-section").append(response); // Add the response html to the view
     listenSelectList(); // Add a listener to select elements from the list
     listenEventsFav(); // Add a listener to change the fav events glyphicon

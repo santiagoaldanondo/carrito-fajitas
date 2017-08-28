@@ -1,4 +1,6 @@
-<form>
+<h1 class="centered title padd-it"> Edit a recipe </h1>
+
+<form class="padd-it">
   <div class="form-group col-xs-3 col-md-4 centered">
   </div>
   <div class="form-group col-xs-6 col-md-4 centered">
@@ -13,36 +15,36 @@
   </div>
 </form>
 
-<form action="/recipes/<%= recipe._id %>" method="POST">
+<form action="/recipes/<%= recipe._id %>" method="POST" class="padd-it">
 
   <input class="form-control" type="hidden" id="picturePath" name="picturePath" value="<%= recipe.picturePath%>">
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="name">Recipe name</label>
     <input class="form-control" type="text" id="name" name="name" value="<%= recipe.name %>">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="ingredients">Ingredients</label>
     <input class="form-control" type="text" id="ingredients" name="ingredients" value="<%= recipe.ingredients %>">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="directions">Cooking directions</label>
     <textarea class="form-control" type="text" name="directions" id="directions" value="<%= recipe.directions %>"></textarea>
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="preparationTime">Preparation time (in hours)</label>
     <input class="form-control" type="number" step="any" name="preparationTime" id="preparationTime" value="<%= recipe.preparationTime %>">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="cookingTime">Cooking time (in hours)</label>
     <input class="form-control" type="number" step="any" name="cookingTime" id="cookingTime" value="<%= recipe.cookingTime %>">
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="difficulty">Difficulty</label>
     <select class="form-control" type="number" name="difficulty" id="difficulty">
       <% if (recipe.difficulty === 1) { %>
@@ -65,12 +67,12 @@
     </select>
   </div>
 
-  <div class="form-group col-xs-12 centered">
+  <div class="form-group col-xs-10 centered">
     <label class="centered" for="numberPeople">For how many people?</label>
     <input class="form-control" type="number" name="numberPeople" id="numberPeople" value="<%= recipe.numberPeople %>">
   </div>
 
-  <div class="form-group centered">
+  <div class="form-group col-xs-10 centered">
     <label class="control-label" for="category">Food category</label>
     <select multiple="multiple" name="category" id="category" class="multiselect-ui form-control">
       <% categories.forEach((category) => { %>

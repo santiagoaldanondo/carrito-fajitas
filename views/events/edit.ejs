@@ -1,35 +1,35 @@
-<h2 class="centered"> Edit your event </h2>
+<h1 class="centered title padd-it"> Edit an event </h1>
 
-<form action="/events/<%= event._id %>" method="POST">
+<form action="/events/<%= event._id %>" method="POST" class="padd-it">
 
-    <div class="form-group col-xs-12 centered">
+    <div class="form-group col-xs-10 centered">
         <label class="centered" for="name">Event name</label>
         <input class="form-control" type="text" id="name" name="name" value="<%= event.name %>">
     </div>
 
-    <div class="form-group col-xs-12 centered">
+    <div class="form-group col-xs-10 centered">
         <label class="centered" for="eventDateDate">Date</label>
         <% const eventDateDateVal = (event.eventDate && event.eventDate !== "") ? moment(event.eventDate).format('YYYY-MM-DD') : moment(new Date).format('YYYY-MM-DD'); %>        
         <input class="form-control" type="date" id="eventDateDate" name="eventDateDate" value="<%= eventDateDateVal %>">
     </div>
 
-    <div class="form-group col-xs-12 centered">
+    <div class="form-group col-xs-10 centered">
         <label class="centered" for="eventDateTime">Hour</label>
         <% const eventDateTimeVal = (event.eventDate && event.eventDate !== "") ? moment(event.eventDate).format('HH:mm') : moment(new Date).format('HH:mm'); %>
         <input class="form-control" type="time" id="eventDateTime" name="eventDateTime" value="<%= eventDateTimeVal %>">
     </div>
 
-    <div class="form-group col-xs-12 centered">
+    <div class="form-group col-xs-10 centered">
         <label class="centered" for="numberPeople">For how many people?</label>
         <input class="form-control" type="number" name="numberPeople" id="numberPeople" value="<%= event.numberPeople %>">
     </div>
 
-    <div class="form-group col-xs-12 centered">
+    <div class="form-group col-xs-10 centered">
         <label class="centered" for="price">How much will assistants pay?</label>
         <input class="form-control" type="number" name="price" id="price" value="<%= event.price %>">
     </div>
 
-    <div class="form-group centered">
+    <div class="form-group col-xs-10 centered">
         <label class="control-label" for="category">Favorite food category</label>
         <select name="category" id="category" class="form-control">
             <% categories.forEach((category) => { %>
@@ -46,7 +46,7 @@
         </select>
     </div>
 
-    <div class="form-group col-xs-12 centered">
+    <div class="form-group col-xs-10 centered">
         <label class="centered" for="address">Location</label>
         <input class="form-control" type="text" name="address" id="address" value="<%= event.address %>">
         <input class="form-control" type="text" name="latitude" id="latitude" value="<%= event.location.coordinates[0] %>">
@@ -54,7 +54,7 @@
         <input type="button" value="search address" class="encode">
     </div>
 
-    <div id="map" class="col-xs-12 centered"></div>
+    <div id="map" class="col-xs-10 centered"></div>
 
     <button type="submit" class="btn btn-primary center-block">Update</button>
 
