@@ -1,18 +1,18 @@
-<h2 class="centered"> Search event </h2>
+<h1 class="centered title padd-it">Search event</h1>
 
-<form class="search-form" action="/events/search" method="POST">
+<form class="search-form padd-it centered" action="/events/search" method="POST">
 
-  <div class="form-group col-xs-6">
+  <div class="form-group col-xs-6 padd-it">
     <label class="centered" for="startDate">From date</label>
     <input class="form-control" type="date" id="startDate" name="startDate" placeholder="From date">
   </div>
 
-  <div class="form-group col-xs-6">
+  <div class="form-group col-xs-6 padd-it">
     <label class="centered" for="endDate">To date</label>
     <input class="form-control" type="date" id="endDate" name="endDate" placeholder="To date">
   </div>
 
-  <div class="form-group col-xs-4">
+  <div class="form-group col-xs-4 padd-it">
     <label class="centered" for="category">Category</label>
     <select name="category" id="category" class="form-control" placeholder="category">
       <option value="" selected hidden>Category</option>
@@ -24,24 +24,24 @@
     </select>
   </div>
 
-  <div class="form-group col-xs-4">
+  <div class="form-group col-xs-4 padd-it">
     <label class="centered" for="numberPeople">N. People</label>
     <input class="form-control" type="number" name="numberPeople" id="numberPeople" placeholder="N. People">
   </div>
 
-  <div class="form-group col-xs-4">
+  <div class="form-group col-xs-4 padd-it">
     <label class="centered" for="price">Budget</label>
     <input class="form-control" type="number" name="price" id="price" placeholder="Budget">
   </div>
 
-  <div class="form-group col-xs-9">
+  <div class="form-group col-xs-9 padd-it">
     <label class="centered" for="address">Address</label>
     <input class="form-control" type="text" name="address" id="address" placeholder="Address">
         <input class="form-control" type="text" name="latitude" id="latitude">
     <input class="form-control" type="text" name="longitude" id="longitude">
   </div>
 
-  <div class="form-group col-xs-3">
+  <div class="form-group col-xs-3 padd-it">
     <label class="centered" for="distance">Distance</label>
     <input class="form-control" type="number" name="distance" min="5" value="50" id="distance" placeholder="Distance">
   </div>

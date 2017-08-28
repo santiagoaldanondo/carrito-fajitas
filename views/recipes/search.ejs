@@ -1,18 +1,18 @@
-<h2 class="centered"> Search recipe </h2>
+<h1 class="centered title padd-it">Search recipe</h1>
 
-<form class="search-form" action="/recipes/search" method="POST">
+<form class="search-form padd-it centered" action="/recipes/search" method="POST">
 
-  <div class="form-group col-xs-3">
+  <div class="form-group col-xs-6 padd-it">
     <label class="centered" for="name">Name</label>
     <input class="form-control" type="text" name="name" id="name">
   </div>
 
-  <div class="form-group col-xs-3">
+  <div class="form-group col-xs-6 padd-it">
     <label class="centered" for="ingredients">Ingredients</label>
     <input class="form-control" type="text" name="ingredients" id="ingredients">
   </div>
 
-  <div class="form-group col-xs-3">
+  <div class="form-group col-xs-4 padd-it">
     <label class="centered" for="difficulty">Difficulty</label>
     <select class="form-control" type="number" name="difficulty" id="difficulty">
       <option value="" selected hidden>Choose here</option>
@@ -22,13 +22,13 @@
     </select>
   </div>
 
-  <div class="form-group col-xs-3">
+  <div class="form-group col-xs-4 padd-it">
     <label class="centered" for="numberPeople">People</label>
     <input class="form-control" type="number" name="numberPeople" id="numberPeople">
   </div>
   
-  <div class="form-group col-xs-12">
-    <label class="control-label" for="category">Category</label><br>
+  <div class="form-group col-xs-4 padd-it">
+    <label class="control-label centered" for="category">Category</label>
     <select name="category" id="category" class="form-control">
       <option value="" selected hidden>Choose here</option>
       <% categories.forEach((category) => { %>
